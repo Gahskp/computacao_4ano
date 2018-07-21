@@ -22,17 +22,19 @@ public class TabuleiroTeste extends JFrame {
         check7, check8, check9, check10, check11, check12, check13, check14, check15, 
         check16, check17, check18, check19, check20, check21, check22, check23, check24;
     
+    private int LC1 = 20, LC2=50, LC3=80, LC4=110, LC5=140, LC6=170, LC7=200;
+    private int W = 16, H = 15;
+    
     public TabuleiroTeste() 
-    {
+    {      
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 500);
+        setSize(550, 550);
         setLayout(null);
     
         setVisible(true);
     }
     
     public void addButtons(){
-        
 
         check1 = new JRadioButton();
         check2 = new JRadioButton();
@@ -59,40 +61,41 @@ public class TabuleiroTeste extends JFrame {
         check23 = new JRadioButton();
         check24 = new JRadioButton();
         
-        check1.setBounds(10, 10, 20, 30);
-        check2.setBounds(10, 220, 20, 30);
-        check3.setBounds(10, 430, 20, 30);
+        check1.setBounds(LC1, LC1, W, H);
+        check2.setBounds(LC1, LC4, W, H);
+        check3.setBounds(LC1, LC7, W, H);
         
-        check4.setBounds(80, 80, 20, 30);
-        check5.setBounds(80, 220, 20, 30);
-        check6.setBounds(80, 360, 20, 30);
+        check4.setBounds(LC2, LC2, W, H);
+        check5.setBounds(LC2, LC4, W, H);
+        check6.setBounds(LC2, LC6, W, H);
         
-        check7.setBounds(150, 150, 20, 30);
-        check8.setBounds(150, 220, 20, 30);
-        check9.setBounds(150, 290, 20, 30);
+        check7.setBounds(LC3, LC3, W, H);
+        check8.setBounds(LC3, LC4, W, H);
+        check9.setBounds(LC3, LC5, W, H);
         
-        check10.setBounds(220, 10, 20, 30);
-        check11.setBounds(220, 80, 20, 30);
-        check12.setBounds(220, 150, 20, 30);
-        check13.setBounds(220, 290, 20, 30);
-        check14.setBounds(220, 360, 20, 30);
-        check15.setBounds(220, 430, 20, 30);
+        check10.setBounds(LC4, LC1, W, H);
+        check11.setBounds(LC4, LC2, W, H);
+        check12.setBounds(LC4, LC3, W, H);
+        check13.setBounds(LC4, LC5, W, H);
+        check14.setBounds(LC4, LC6, W, H);
+        check15.setBounds(LC4, LC7, W, H);
         
-        check16.setBounds(290, 150, 20, 30);
-        check17.setBounds(290, 220, 20, 30);
-        check18.setBounds(290, 290, 20, 30);
+        check16.setBounds(LC5, LC3, W, H);
+        check17.setBounds(LC5, LC4, W, H);
+        check18.setBounds(LC5, LC5, W, H);
         
-        check19.setBounds(360, 80, 20, 30);
-        check20.setBounds(360, 220, 20, 30);
-        check21.setBounds(360, 360, 20, 30);
+        check19.setBounds(LC6, LC2, W, H);
+        check20.setBounds(LC6, LC4, W, H);
+        check21.setBounds(LC6, LC6, W, H);
         
-        check22.setBounds(430, 10, 20, 30);
-        check23.setBounds(430, 220, 20, 30);
-        check24.setBounds(430, 430, 20, 30);
+        check22.setBounds(LC7, LC1, W, H);
+        check23.setBounds(LC7, LC4, W, H);
+        check24.setBounds(LC7, LC7, W, H);
         
         add(check1);
         add(check2);
         add(check3);
+        
         add(check4);
         add(check5);
         add(check6);
@@ -117,35 +120,134 @@ public class TabuleiroTeste extends JFrame {
     }
     
     public void paint(Graphics g) {
+        int adjvx1 = 18, adjvy1 = 44, adjvy2 = 32;      
+        addButtons();
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
         Line2D lin = new Line2D.Float(10, 25, 445, 25);
+        //g2.draw(lin);
+        lin.setLine(LC1+adjvx1, LC1+adjvy1, LC1+adjvx1, LC4+adjvy2);
         g2.draw(lin);
-        lin.setLine(10, 445, 445, 445);
+        lin.setLine(LC1+adjvx1, LC4+adjvy1, LC1+adjvx1, LC7+adjvy2);
         g2.draw(lin);
-        lin.setLine(10, 235, 150, 235);
+        
+        lin.setLine(LC2+adjvx1, LC2+adjvy1, LC2+adjvx1, LC4+adjvy2);
         g2.draw(lin);
-        lin.setLine(290, 235, 445, 235);
+        lin.setLine(LC2+adjvx1, LC4+adjvy1, LC2+adjvx1, LC6+adjvy2);
         g2.draw(lin);
-        lin.setLine(80, 95, 360, 95);
+        
+        lin.setLine(LC3+adjvx1, LC3+adjvy1, LC3+adjvx1, LC4+adjvy2);
         g2.draw(lin);
-        lin.setLine(80, 375, 360, 375);
+        lin.setLine(LC3+adjvx1, LC4+adjvy1, LC3+adjvx1, LC5+adjvy2);
         g2.draw(lin);
-        lin.setLine(150, 165, 290, 165);
+        
+        // ----------------
+        
+        lin.setLine(LC7+adjvx1, LC1+adjvy1, LC7+adjvx1, LC4+adjvy2);
         g2.draw(lin);
-        lin.setLine(150, 305, 290, 305);
+        lin.setLine(LC7+adjvx1, LC4+adjvy1, LC7+adjvx1, LC7+adjvy2);
         g2.draw(lin);
-        lin.setLine(20, 10, 20, 430);
+        
+        lin.setLine(LC6+adjvx1, LC2+adjvy1, LC6+adjvx1, LC4+adjvy2);
         g2.draw(lin);
-        lin.setLine(440, 10, 440, 430);
+        lin.setLine(LC6+adjvx1, LC4+adjvy1, LC6+adjvx1, LC6+adjvy2);
         g2.draw(lin);
-        lin.setLine(90, 80, 90, 360);
+        
+        lin.setLine(LC5+adjvx1, LC3+adjvy1, LC5+adjvx1, LC4+adjvy2);
         g2.draw(lin);
-        lin.setLine(370, 80, 370, 360);
+        lin.setLine(LC5+adjvx1, LC4+adjvy1, LC5+adjvx1, LC5+adjvy2);
         g2.draw(lin);
-        lin.setLine(160, 150, 160, 290);
+        
+        
+        //--------------------
+        
+        lin.setLine(LC4+adjvx1, LC1+adjvy1, LC4+adjvx1, LC2+adjvy2);
         g2.draw(lin);
-        lin.setLine(300, 150, 300, 290);
+        lin.setLine(LC4+adjvx1, LC2+adjvy1, LC4+adjvx1, LC3+adjvy2);
         g2.draw(lin);
+        
+        lin.setLine(LC4+adjvx1, LC5+adjvy1, LC4+adjvx1, LC6+adjvy2);
+        g2.draw(lin);
+        lin.setLine(LC4+adjvx1, LC6+adjvy1, LC4+adjvx1, LC7+adjvy2);
+        g2.draw(lin);
+        
+        //-------------------
+        
+        //------------------
+        
+        int adjhx1=25, adjhy1 = 37, adjhx2 = 10;
+        
+        lin.setLine(LC1+adjhx1, LC1+adjhy1, LC4+adjhx2, LC1+adjhy1);
+        g2.draw(lin);
+        lin.setLine(LC4+adjhx1, LC1+adjhy1, LC7+adjhx2, LC1+adjhy1);
+        g2.draw(lin);
+        
+        lin.setLine(LC2+adjhx1, LC2+adjhy1, LC4+adjhx2, LC2+adjhy1);
+        g2.draw(lin);
+        lin.setLine(LC4+adjhx1, LC2+adjhy1, LC6+adjhx2, LC2+adjhy1);
+        g2.draw(lin);
+        
+        lin.setLine(LC3+adjhx1, LC3+adjhy1, LC4+adjhx2, LC3+adjhy1);
+        g2.draw(lin);
+        lin.setLine(LC4+adjhx1, LC3+adjhy1, LC5+adjhx2, LC3+adjhy1);
+        g2.draw(lin);
+        
+        // ----------------
+        
+        lin.setLine(LC1+adjhx1, LC7+adjhy1, LC4+adjhx2, LC7+adjhy1);
+        g2.draw(lin);
+        lin.setLine(LC4+adjhx1, LC7+adjhy1, LC7+adjhx2, LC7+adjhy1);
+        g2.draw(lin);
+        
+        lin.setLine(LC2+adjhx1, LC6+adjhy1, LC4+adjhx2, LC6+adjhy1);
+        g2.draw(lin);
+        lin.setLine(LC4+adjhx1, LC6+adjhy1, LC6+adjhx2, LC6+adjhy1);
+        g2.draw(lin);
+        
+        lin.setLine(LC3+adjhx1, LC5+adjhy1, LC4+adjhx2, LC5+adjhy1);
+        g2.draw(lin);
+        lin.setLine(LC4+adjhx1, LC5+adjhy1, LC5+adjhx2, LC5+adjhy1);
+        g2.draw(lin);
+        
+        
+        //--------------------
+        
+        lin.setLine(LC1+adjhx1, LC4+adjhy1, LC2+adjhx2, LC4+adjhy1);
+        g2.draw(lin);
+        lin.setLine(LC2+adjhx1, LC4+adjhy1, LC3+adjhx2, LC4+adjhy1);
+        g2.draw(lin);
+        
+        lin.setLine(LC5+adjhx1, LC4+adjhy1, LC6+adjhx2, LC4+adjhy1);
+        g2.draw(lin);
+        lin.setLine(LC6+adjhx1, LC4+adjhy1, LC7+adjhx2, LC4+adjhy1);
+        g2.draw(lin);
+        
+        //-------------------
+        
+        int adjtx1 = 23,  adjty1 = 43,adjtx2 = 13, adjty2 = 33;
+        
+        lin.setLine(LC1+adjtx1, LC1+adjty1, LC2+adjtx2, LC2+adjty2);
+        g2.draw(lin);
+        lin.setLine(LC2+adjtx1, LC2+adjty1, LC3+adjtx2, LC3+adjty2);
+        g2.draw(lin);
+        
+        lin.setLine(LC5+adjtx1, LC5+adjty1, LC6+adjtx2, LC6+adjty2);
+        g2.draw(lin);
+        lin.setLine(LC6+adjtx1, LC6+adjty1, LC7+adjtx2, LC7+adjty2);
+        g2.draw(lin);
+        
+        int adjttx1 = 23, adjtty1 =33, adjttx2=13, adjtty2=43;       
+        
+        lin.setLine(LC1+adjttx1, LC7+adjtty1, LC2+adjttx2, LC6+adjtty2);
+        g2.draw(lin);
+        lin.setLine(LC2+adjttx1, LC6+adjtty1, LC3+adjttx2, LC5+adjtty2);
+        g2.draw(lin);
+        
+        lin.setLine(LC5+adjttx1, LC3+adjtty1, LC6+adjttx2, LC2+adjtty2);
+        g2.draw(lin);
+        lin.setLine(LC6+adjttx1, LC2+adjtty1, LC7+adjttx2, LC1+adjtty2);
+        g2.draw(lin);
+        
+        
     }
 }
