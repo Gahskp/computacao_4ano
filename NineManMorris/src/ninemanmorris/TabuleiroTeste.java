@@ -11,12 +11,14 @@ import javax.swing.JFrame;
 import java.awt.geom.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 /**
  *
  * @author oliver
  */
 
-public class TabuleiroTeste extends JFrame {
+public class TabuleiroTeste extends JFrame implements ActionListener{
     
     private JRadioButton check1, check2, check3, check4, check5, check6,
         check7, check8, check9, check10, check11, check12, check13, check14, check15, 
@@ -24,6 +26,8 @@ public class TabuleiroTeste extends JFrame {
     
     private int LC1 = 20, LC2=50, LC3=80, LC4=110, LC5=140, LC6=170, LC7=200;
     private int W = 16, H = 15;
+        
+    Stats stats = new Stats();
     
     public TabuleiroTeste() 
     {      
@@ -117,6 +121,31 @@ public class TabuleiroTeste extends JFrame {
         add(check22);
         add(check23);
         add(check24);
+        
+        check1.addActionListener(this);
+        check2.addActionListener(this);
+        check3.addActionListener(this);
+        check4.addActionListener(this);
+        check5.addActionListener(this);
+        check6.addActionListener(this);
+        check7.addActionListener(this);
+        check8.addActionListener(this);
+        check9.addActionListener(this);
+        check10.addActionListener(this);
+        check11.addActionListener(this);
+        check12.addActionListener(this);
+        check13.addActionListener(this);
+        check14.addActionListener(this);
+        check15.addActionListener(this);
+        check16.addActionListener(this);
+        check17.addActionListener(this);
+        check18.addActionListener(this);
+        check19.addActionListener(this);
+        check20.addActionListener(this);
+        check21.addActionListener(this);
+        check22.addActionListener(this);
+        check23.addActionListener(this);
+        check24.addActionListener(this);
     }
     
     public void paint(Graphics g) {
@@ -246,8 +275,108 @@ public class TabuleiroTeste extends JFrame {
         lin.setLine(LC5+adjttx1, LC3+adjtty1, LC6+adjttx2, LC2+adjtty2);
         g2.draw(lin);
         lin.setLine(LC6+adjttx1, LC2+adjtty1, LC7+adjttx2, LC1+adjtty2);
-        g2.draw(lin);
-        
-        
+        g2.draw(lin);   
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
+        if(check1.isSelected()){
+            stats.setMatrix(0, 0);
+            stats.getMatrix();
+        }
+        if(check2.isSelected()){
+            stats.setMatrix(3, 0);
+            stats.getMatrix();
+        }
+        if(check3.isSelected()){
+            stats.setMatrix(6, 0);
+            stats.getMatrix();
+        }
+        if(check4.isSelected()){
+            stats.setMatrix(1, 1);
+            stats.getMatrix();
+        }
+        if(check5.isSelected()){
+            stats.setMatrix(3, 1);
+            stats.getMatrix();
+        }
+        if(check6.isSelected()){
+            stats.setMatrix(5, 1);
+            stats.getMatrix();
+        }
+        if(check7.isSelected()){
+            stats.setMatrix(2, 2);
+            stats.getMatrix();
+        }
+        if(check8.isSelected()){
+            stats.setMatrix(3, 2);
+            stats.getMatrix();
+        }
+        if(check9.isSelected()){
+            stats.setMatrix(4, 2);
+            stats.getMatrix();
+        }
+        if(check10.isSelected()){
+            stats.setMatrix(0, 3);
+            stats.getMatrix();
+        }
+        if(check11.isSelected()){
+            stats.setMatrix(1, 3);
+            stats.getMatrix();
+        }
+        if(check12.isSelected()){
+            stats.setMatrix(2, 3);
+            stats.getMatrix();
+        }
+        if(check13.isSelected()){
+            stats.setMatrix(4, 3);
+            stats.getMatrix();
+        }
+        if(check14.isSelected()){
+            stats.setMatrix(5, 3);
+            stats.getMatrix();
+        }
+        if(check15.isSelected()){
+            stats.setMatrix(6, 3);
+            stats.getMatrix();
+        }
+        if(check16.isSelected()){
+            stats.setMatrix(2, 4);
+            stats.getMatrix();
+        }
+        if(check17.isSelected()){
+            stats.setMatrix(3, 4);
+            stats.getMatrix();
+        }
+        if(check18.isSelected()){
+            stats.setMatrix(4, 4);
+            stats.getMatrix();
+        }
+        if(check19.isSelected()){
+            stats.setMatrix(1, 5);
+            stats.getMatrix();
+        }
+        if(check20.isSelected()){
+            stats.setMatrix(3, 5);
+            stats.getMatrix();
+        }
+        if(check21.isSelected()){
+            stats.setMatrix(5, 5);
+            stats.getMatrix();
+        }
+        if(check22.isSelected()){
+            stats.setMatrix(0, 6);
+            stats.getMatrix();
+        }
+        if(check23.isSelected()){
+            stats.setMatrix(3, 6);
+            stats.getMatrix();
+        }
+        if(check24.isSelected()){
+            stats.setMatrix(6, 6);
+            stats.getMatrix();
+        }
+    }
+    
 }
