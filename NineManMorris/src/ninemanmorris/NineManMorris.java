@@ -19,6 +19,7 @@ public class NineManMorris {
         
         TabuleiroTeste tabuleiro = new TabuleiroTeste();
         tabuleiro.addButtons();
+        tabuleiro.addListener();
     }
     
 }

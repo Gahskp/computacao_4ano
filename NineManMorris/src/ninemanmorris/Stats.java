@@ -40,8 +40,9 @@ public class Stats {
             for(int j=0; j<7; j++){
                 System.out.print(matrix[i][j] + "     ");
             }
-            System.out.println();
+            System.out.println(" ");
         }
+        System.out.println("=========================================");
     }
     
 }

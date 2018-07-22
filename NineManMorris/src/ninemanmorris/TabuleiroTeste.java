@@ -30,16 +30,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
     Stats stats = new Stats();
     
     public TabuleiroTeste() 
-    {      
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(550, 550);
-        setLayout(null);
-    
-        setVisible(true);
-    }
-    
-    public void addButtons(){
-
+    {
         check1 = new JRadioButton();
         check2 = new JRadioButton();
         check3 = new JRadioButton();
@@ -64,7 +55,13 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
         check22 = new JRadioButton();
         check23 = new JRadioButton();
         check24 = new JRadioButton();
-        
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(550, 550);
+        setLayout(null);
+        setVisible(true);
+    }
+    
+    public void addButtons(){
         check1.setBounds(LC1, LC1, W, H);
         check2.setBounds(LC1, LC4, W, H);
         check3.setBounds(LC1, LC7, W, H);
@@ -121,7 +118,9 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
         add(check22);
         add(check23);
         add(check24);
-        
+    }
+    
+    public void addListener(){
         check1.addActionListener(this);
         check2.addActionListener(this);
         check3.addActionListener(this);
@@ -280,102 +279,78 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
-        if(check1.isSelected()){
+        System.out.println("debug");
+        if(e.getSource() == check1){
             stats.setMatrix(0, 0);
-            stats.getMatrix();
         }
-        if(check2.isSelected()){
+        if(e.getSource() == check2){
             stats.setMatrix(3, 0);
-            stats.getMatrix();
         }
-        if(check3.isSelected()){
+        if(e.getSource() == check3){
             stats.setMatrix(6, 0);
-            stats.getMatrix();
         }
-        if(check4.isSelected()){
+        if(e.getSource() == check4){
             stats.setMatrix(1, 1);
-            stats.getMatrix();
         }
-        if(check5.isSelected()){
+        if(e.getSource() == check5){
             stats.setMatrix(3, 1);
-            stats.getMatrix();
         }
-        if(check6.isSelected()){
+        if(e.getSource() == check6){
             stats.setMatrix(5, 1);
-            stats.getMatrix();
         }
-        if(check7.isSelected()){
+        if(e.getSource() == check7){
             stats.setMatrix(2, 2);
-            stats.getMatrix();
         }
-        if(check8.isSelected()){
+        if(e.getSource() == check8){
             stats.setMatrix(3, 2);
-            stats.getMatrix();
         }
-        if(check9.isSelected()){
+        if(e.getSource() == check9){
             stats.setMatrix(4, 2);
-            stats.getMatrix();
         }
-        if(check10.isSelected()){
+        if(e.getSource() == check10){
             stats.setMatrix(0, 3);
-            stats.getMatrix();
         }
-        if(check11.isSelected()){
+        if(e.getSource() == check11){
             stats.setMatrix(1, 3);
-            stats.getMatrix();
         }
-        if(check12.isSelected()){
+        if(e.getSource() == check12){
             stats.setMatrix(2, 3);
-            stats.getMatrix();
         }
-        if(check13.isSelected()){
+        if(e.getSource() == check13){
             stats.setMatrix(4, 3);
-            stats.getMatrix();
         }
-        if(check14.isSelected()){
+        if(e.getSource() == check14){
             stats.setMatrix(5, 3);
-            stats.getMatrix();
         }
-        if(check15.isSelected()){
+        if(e.getSource() == check15){
             stats.setMatrix(6, 3);
-            stats.getMatrix();
         }
-        if(check16.isSelected()){
+        if(e.getSource() == check16){
             stats.setMatrix(2, 4);
-            stats.getMatrix();
         }
-        if(check17.isSelected()){
+        if(e.getSource() == check17){
             stats.setMatrix(3, 4);
-            stats.getMatrix();
         }
-        if(check18.isSelected()){
+        if(e.getSource() == check18){
             stats.setMatrix(4, 4);
-            stats.getMatrix();
         }
-        if(check19.isSelected()){
+        if(e.getSource() == check19){
             stats.setMatrix(1, 5);
-            stats.getMatrix();
         }
-        if(check20.isSelected()){
+        if(e.getSource() == check20){
             stats.setMatrix(3, 5);
-            stats.getMatrix();
         }
-        if(check21.isSelected()){
+        if(e.getSource() == check21){
             stats.setMatrix(5, 5);
-            stats.getMatrix();
         }
-        if(check22.isSelected()){
+        if(e.getSource() == check22){
             stats.setMatrix(0, 6);
-            stats.getMatrix();
         }
-        if(check23.isSelected()){
+        if(e.getSource() == check23){
             stats.setMatrix(3, 6);
-            stats.getMatrix();
         }
-        if(check24.isSelected()){
+        if(e.getSource() == check24){
             stats.setMatrix(6, 6);
-            stats.getMatrix();
         }
     }
     
