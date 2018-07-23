@@ -6,6 +6,7 @@
 
 package ninemanmorris;
 
+import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.JFrame;
 import java.awt.geom.*;
@@ -20,12 +21,12 @@ import java.awt.event.ActionEvent;
 
 public class TabuleiroTeste extends JFrame implements ActionListener{
     
-    private JRadioButton check1, check2, check3, check4, check5, check6,
+    private final JRadioButton check1, check2, check3, check4, check5, check6,
         check7, check8, check9, check10, check11, check12, check13, check14, check15, 
         check16, check17, check18, check19, check20, check21, check22, check23, check24;
     
-    private int LC1 = 20, LC2=50, LC3=80, LC4=110, LC5=140, LC6=170, LC7=200;
-    private int W = 16, H = 15;
+    private final int LC1 = 20, LC2=50, LC3=80, LC4=110, LC5=140, LC6=170, LC7=200;
+    private final int W = 16, H = 15;
         
     Stats stats = new Stats();
     
@@ -56,7 +57,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
         check23 = new JRadioButton();
         check24 = new JRadioButton();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(550, 550);
+        setSize(300, 300);
         setLayout(null);
         setVisible(true);
     }
@@ -279,79 +280,81 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("debug");
-        if(e.getSource() == check1){
-            stats.setMatrix(0, 0);
+        if(stats.getPieces() < 18){
+            if(e.getSource() == check1){
+                stats.setMatrix(0, 0);
+            }
+            if(e.getSource() == check2){
+                stats.setMatrix(3, 0);
+            }
+            if(e.getSource() == check3){
+                stats.setMatrix(6, 0);
+            }
+            if(e.getSource() == check4){
+                stats.setMatrix(1, 1);
+            }
+            if(e.getSource() == check5){
+                stats.setMatrix(3, 1);
+            }
+            if(e.getSource() == check6){
+                stats.setMatrix(5, 1);
+            }
+            if(e.getSource() == check7){
+                stats.setMatrix(2, 2);
+            }
+            if(e.getSource() == check8){
+                stats.setMatrix(3, 2);
+            }
+            if(e.getSource() == check9){
+                stats.setMatrix(4, 2);
+            }
+            if(e.getSource() == check10){
+                stats.setMatrix(0, 3);
+            }
+            if(e.getSource() == check11){
+                stats.setMatrix(1, 3);
+            }
+            if(e.getSource() == check12){
+                stats.setMatrix(2, 3);
+            }
+            if(e.getSource() == check13){
+                stats.setMatrix(4, 3);
+            }
+            if(e.getSource() == check14){
+                stats.setMatrix(5, 3);
+            }
+            if(e.getSource() == check15){
+                stats.setMatrix(6, 3);
+            }
+            if(e.getSource() == check16){
+                stats.setMatrix(2, 4);
+            }
+            if(e.getSource() == check17){
+                stats.setMatrix(3, 4);
+            }
+            if(e.getSource() == check18){
+                stats.setMatrix(4, 4);
+            }
+            if(e.getSource() == check19){
+                stats.setMatrix(1, 5);
+            }
+            if(e.getSource() == check20){
+                stats.setMatrix(3, 5);
+            }
+            if(e.getSource() == check21){
+                stats.setMatrix(5, 5);
+            }
+            if(e.getSource() == check22){
+                stats.setMatrix(0, 6);
+            }
+            if(e.getSource() == check23){
+                stats.setMatrix(3, 6);
+            }
+            if(e.getSource() == check24){
+                stats.setMatrix(6, 6);
+            }
         }
-        if(e.getSource() == check2){
-            stats.setMatrix(3, 0);
-        }
-        if(e.getSource() == check3){
-            stats.setMatrix(6, 0);
-        }
-        if(e.getSource() == check4){
-            stats.setMatrix(1, 1);
-        }
-        if(e.getSource() == check5){
-            stats.setMatrix(3, 1);
-        }
-        if(e.getSource() == check6){
-            stats.setMatrix(5, 1);
-        }
-        if(e.getSource() == check7){
-            stats.setMatrix(2, 2);
-        }
-        if(e.getSource() == check8){
-            stats.setMatrix(3, 2);
-        }
-        if(e.getSource() == check9){
-            stats.setMatrix(4, 2);
-        }
-        if(e.getSource() == check10){
-            stats.setMatrix(0, 3);
-        }
-        if(e.getSource() == check11){
-            stats.setMatrix(1, 3);
-        }
-        if(e.getSource() == check12){
-            stats.setMatrix(2, 3);
-        }
-        if(e.getSource() == check13){
-            stats.setMatrix(4, 3);
-        }
-        if(e.getSource() == check14){
-            stats.setMatrix(5, 3);
-        }
-        if(e.getSource() == check15){
-            stats.setMatrix(6, 3);
-        }
-        if(e.getSource() == check16){
-            stats.setMatrix(2, 4);
-        }
-        if(e.getSource() == check17){
-            stats.setMatrix(3, 4);
-        }
-        if(e.getSource() == check18){
-            stats.setMatrix(4, 4);
-        }
-        if(e.getSource() == check19){
-            stats.setMatrix(1, 5);
-        }
-        if(e.getSource() == check20){
-            stats.setMatrix(3, 5);
-        }
-        if(e.getSource() == check21){
-            stats.setMatrix(5, 5);
-        }
-        if(e.getSource() == check22){
-            stats.setMatrix(0, 6);
-        }
-        if(e.getSource() == check23){
-            stats.setMatrix(3, 6);
-        }
-        if(e.getSource() == check24){
-            stats.setMatrix(6, 6);
-        }
+        stats.getMatrix();
     }
     
 }
