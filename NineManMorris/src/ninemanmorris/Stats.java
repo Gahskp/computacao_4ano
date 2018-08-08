@@ -13,7 +13,7 @@ public class Stats {
     private boolean player1;
     int[][] matrix = new int[7][7];
     private int pieces = 0;
-    
+
     public Stats(){
         player1 = true;
         for(int i=0;i<7;i++){
@@ -32,11 +32,11 @@ public class Stats {
             player1 = true;
         }
     }
-    
+
     public boolean getPlayer(){
         return player1;
     }
-    
+
     public void getMatrix(){
         for(int i=0;i<7;i++){
             for(int j=0; j<7; j++){
@@ -46,9 +46,25 @@ public class Stats {
         }
         System.out.println("=========================================");
     }
-    
+
     public int getPieces(){
         return pieces;
     }
-    
+    public boolean isTrilha(){
+      int i;
+      int j = 0;
+      for(i = 0; i <= 6; ){
+        if((matrix[i][j] > 0 && matrix[i][3] > 0 && matrix[i][6] > 0)
+            || (matrix[i][j] < 0 && matrix[i][j+3] < 0 && matrix[i][j+6] < 0)){
+          return true;
+        }
+        if((matrix[j][i] > 0 && matrix[3][i] > 0 && matrix[6][i] > 0)
+            || (matrix[j][i] < 0 && matrix[3][i] < 0 && matrix[6][i] < 0)){
+          return true;
+        }
+        i = i + 6;
+      }
+      return false;
+    }
+
 }
