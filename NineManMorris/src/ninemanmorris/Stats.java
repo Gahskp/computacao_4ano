@@ -52,17 +52,27 @@ public class Stats {
     }
     public boolean isTrilha(){
       int i;
-      int j = 0;
       for(i = 0; i <= 6; ){
-        if((matrix[i][j] > 0 && matrix[i][3] > 0 && matrix[i][6] > 0)
-            || (matrix[i][j] < 0 && matrix[i][j+3] < 0 && matrix[i][j+6] < 0)){
+        if((matrix[i][0] > 0 && matrix[i][3] > 0 && matrix[i][6] > 0)
+            || (matrix[i][0] < 0 && matrix[i][3] < 0 && matrix[i][6] < 0)){
           return true;
         }
-        if((matrix[j][i] > 0 && matrix[3][i] > 0 && matrix[6][i] > 0)
-            || (matrix[j][i] < 0 && matrix[3][i] < 0 && matrix[6][i] < 0)){
+        if((matrix[0][i] > 0 && matrix[3][i] > 0 && matrix[6][i] > 0)
+            || (matrix[0][i] < 0 && matrix[3][i] < 0 && matrix[6][i] < 0)){
           return true;
         }
         i = i + 6;
+      }
+      for(i = 1; i <= 5; ){
+        if((matrix[i][1] > 0 && matrix[i][3] > 0 && matrix[i][5] > 0)
+            || (matrix[i][1] < 0 && matrix[i][3] < 0 && matrix[i][5] < 0)){
+          return true;
+        }
+        if((matrix[1][i] > 0 && matrix[3][i] > 0 && matrix[5][i] > 0)
+            || (matrix[1][i] < 0 && matrix[3][i] < 0 && matrix[5][i] < 0)){
+          return true;
+        }
+        i = i + 4;
       }
       return false;
     }

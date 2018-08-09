@@ -373,10 +373,10 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 stats.setMatrix(6, 6);
             }
         }
-//        if(stats.isTrilha()){
-//            System.out.println("TRILHA");
-//            System.out.println(stats.getPlayer1());
-//        }
+        if(stats.isTrilha()){
+            System.out.println("TRILHA");
+            System.out.println(stats.getPlayer1());
+        }
         stats.getMatrix();
     }
 
