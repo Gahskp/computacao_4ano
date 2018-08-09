@@ -33,7 +33,7 @@ public class Stats {
         }
     }
 
-    public boolean getPlayer(){
+    public boolean getPlayer1(){
         return player1;
     }
 

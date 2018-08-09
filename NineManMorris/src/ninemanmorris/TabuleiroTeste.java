@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
  * @author oliver
  */
 
-public class TabuleiroTeste extends JFrame implements ActionListener{
+public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
     private final JRadioButton check1, check2, check3, check4, check5, check6,
         check7, check8, check9, check10, check11, check12, check13, check14, check15,
@@ -60,6 +60,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
         setSize(300, 300);
         setLayout(null);
         setVisible(true);
+        new Thread();
     }
 
     public void addButtons(){
@@ -276,12 +277,32 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
         lin.setLine(LC6+adjttx1, LC2+adjtty1, LC7+adjttx2, LC1+adjtty2);
         g2.draw(lin);
     }
-
+    
+//    public void threadIsTrilha(){
+//        new Thread(){
+//            @Override
+//            public void run(){
+//                if(stats.isTrilha()){
+//                    System.out.println("TRILHA");
+//                }
+//            }
+//        }.start();
+//    }
+    @Override
+    public void run(){
+        int i;
+        for(i = 0; i < 1000000000; i++){
+            if(stats.isTrilha()){
+                System.out.println("TRILHA");
+                break;
+            }
+            System.out.println("debug");    
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(stats.isTrilha()){
-            System.out.println("TRILHA");
-        }
+        
         if(stats.getPieces() < 18){
             if(e.getSource() == check1){
                 stats.setMatrix(0, 0);
@@ -303,6 +324,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
             }
             if(e.getSource() == check7){
                 stats.setMatrix(2, 2);
+                return;
             }
             if(e.getSource() == check8){
                 stats.setMatrix(3, 2);
@@ -356,6 +378,10 @@ public class TabuleiroTeste extends JFrame implements ActionListener{
                 stats.setMatrix(6, 6);
             }
         }
+//        if(stats.isTrilha()){
+//            System.out.println("TRILHA");
+//            System.out.println(stats.getPlayer1());
+//        }
         stats.getMatrix();
     }
 

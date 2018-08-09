@@ -5,11 +5,13 @@
  */
 package ninemanmorris;
 
+import java.lang.Thread;
+
 /**
  *
  * @author oliver
  */
-public class NineManMorris {
+public class NineManMorris extends Thread {
 
     /**
      * @param args the command line arguments
@@ -17,9 +19,18 @@ public class NineManMorris {
     public static void main(String[] args) {
         // TODO code application logic here
         
+        
+//        testeThread th = new testeThread();
+//        Thread teste = new Thread(th);
+//        teste.start();
+        
         TabuleiroTeste tabuleiro = new TabuleiroTeste();
         tabuleiro.addButtons();
         tabuleiro.addListener();
+        
+        Thread threadTabuleiro = new Thread(tabuleiro);
+        threadTabuleiro.start();
+        
     }
     
 }
