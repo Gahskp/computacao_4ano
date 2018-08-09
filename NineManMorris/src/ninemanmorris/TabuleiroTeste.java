@@ -290,13 +290,8 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 //    }
     @Override
     public void run(){
-        int i;
-        for(i = 0; i < 1000000000; i++){
-            if(stats.isTrilha()){
-                System.out.println("TRILHA");
-                break;
-            }
-            System.out.println("debug");    
+        if(stats.isTrilha()){
+            System.out.println("TRILHA");
         }
     }
     
