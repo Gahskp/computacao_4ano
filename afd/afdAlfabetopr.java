@@ -117,8 +117,6 @@ public class ExercicioPseudoCodigoAFD {
 				case 'z':
 				estado = 2;
 				break;
-                default:
-                return false;
 			}
 			break;
 		case 2:
@@ -201,8 +199,6 @@ public class ExercicioPseudoCodigoAFD {
 				case 'z':
 				estado = 3;
 				break;
-                default:
-                return false;
 			}
 			break;
 		case 3:
@@ -285,8 +281,6 @@ public class ExercicioPseudoCodigoAFD {
 				case 'z':
 				estado = 4;
 				break;
-                default:
-                return false;
 			}
 			break;
 		case 4:
@@ -369,8 +363,6 @@ public class ExercicioPseudoCodigoAFD {
 				case 'z':
 				estado = 4;
 				break;
-                default:
-                return false;
 			}
 			break;
            }
@@ -379,7 +371,7 @@ public class ExercicioPseudoCodigoAFD {
 	if(estado == 4){
 		return true;
 	}else{
-                return false; }
+		return false; }
        }
     
 }
