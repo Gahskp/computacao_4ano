@@ -1,3 +1,4 @@
+
 /**
  * TPEditor.java
  *
@@ -342,160 +343,11 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
         return false;
     }
     
-    private boolean runAFD(String s) {
-       int estado = 1;
-       char c;
-       int i = 0;
-       while (i<s.length()) {
-           c = s.charAt(i);
-           switch (estado) {
-		case 1:
-			switch (c){
-				case '0':
-				estado = 2;
-				break;
-				case '1':
-				estado = 2;
-				break;
-				case '2':
-				estado = 2;
-				break;
-				case '3':
-				estado = 2;
-				break;
-				case '4':
-				estado = 2;
-				break;
-				case '5':
-				estado = 2;
-				break;
-				case '6':
-				estado = 2;
-				break;
-				case '7':
-				estado = 2;
-				break;
-				case '8':
-				estado = 2;
-				break;
-				case '9':
-				estado = 2;
-				break;
-				case '.':
-				estado = 4;
-				break;
-                                default:
-                                return false;
-			}
-			break;
-		case 2:
-			switch (c){
-				case '0':
-				estado = 2;
-				break;
-				case '1':
-				estado = 2;
-				break;
-				case '2':
-				estado = 2;
-				break;
-				case '3':
-				estado = 2;
-				break;
-				case '4':
-				estado = 2;
-				break;
-				case '5':
-				estado = 2;
-				break;
-				case '6':
-				estado = 2;
-				break;
-				case '7':
-				estado = 2;
-				break;
-				case '8':
-				estado = 2;
-				break;
-				case '9':
-				estado = 2;
-				break;
-				case '.':
-				estado = 3;
-				break;
-                                default:
-                                return false;
-			}
-			break;
-		case 3:
-			switch (c){
-				case '0':
-				estado = 3;
-				break;
-				case '1':
-				estado = 3;
-				break;
-				case '2':
-				estado = 3;
-				break;
-				case '3':
-				estado = 3;
-				break;
-				case '4':
-				estado = 3;
-				break;
-				case '5':
-				estado = 3;
-				break;
-				case '6':
-				estado = 3;
-				break;
-				case '7':
-				estado = 3;
-				break;
-				case '8':
-				estado = 3;
-				break;
-				case '9':
-				estado = 3;
-				break;
-				case '.':
-				estado = 4;
-				break;
-                                default:
-                                return false;
-			}
-			break;
-		case 4:
-			switch (c){
-				case '0':
-				case '1':
-				case '2':
-				case '3':
-				case '4':
-				case '5':
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-				case '.':
-			}
-			break;
-           }
-           i++;
-       }
-	if(estado == 2){
-		return true;
-	}else if(estado == 3){
-		return true;
-	}else{
-		return false; }
-       }
-    
     
     public int metodoFalsoAFD(String s){
+        runAFD afd = new runAFD();
         // Método falso e provisório para testes. Apenas simula algumas das análises e respostas do AFD a ser implementado
-        if(runAFD("76554")){
+        if(afd.runAFDNumeros("76554")){
             System.out.println("#### FUNCIONA ####");
         }
         Pattern p1 = Pattern.compile("[0-9]+");
