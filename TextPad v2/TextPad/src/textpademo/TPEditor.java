@@ -347,19 +347,22 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
     public int metodoFalsoAFD(String s){
         runAFD afd = new runAFD();
         // Método falso e provisório para testes. Apenas simula algumas das análises e respostas do AFD a ser implementado
-        if(afd.runAFDNumeros("76554")){
-            System.out.println("#### FUNCIONA ####");
+        if(afd.runAFDNumeros(s)){
+            return 1;
+        }
+        if(afd.runAFDAlfabeto(s)){
+            return 2;
         }
         Pattern p1 = Pattern.compile("[0-9]+");
         Matcher m1=p1.matcher(s);
-        if (m1.matches()){
-            return 1;  //constante
-        }        
+//        if (m1.matches()){
+//            return 1;  //constante
+//        }        
         p1 = Pattern.compile("\"(.|\\s)*\"");
         m1=p1.matcher(s);
-        if (m1.matches()){
-            return 2;  // string
-        }
+//        if (m1.matches()){
+//            return 2;  // string
+//        }
         if (s.matches("\\+") || s.matches("-") || s.matches("\\*") || s.matches("/") || s.matches("%")){
             return 3; // op. aritm.
         }
