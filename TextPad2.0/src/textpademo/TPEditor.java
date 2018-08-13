@@ -1,4 +1,3 @@
-
 /**
  * TPEditor.java
  *
@@ -199,36 +198,11 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
 */        
         
        jTextPane.addKeyListener(this);
-       timer = new Timer(50,this);
-       timer.start();
+       jTextPane.setText(" ");
+      // timer = new Timer(50,this);
+      //timer.start();
     }
  
-    public void colorirTexto(){
-             
-        String texto[];
-        String vermelho="vermelho";
-        texto=jTextPane.getText().split(" ");
-        String rascunho;
-                
-        String s2 = jTextPane.getText();
-
-        jTextPane.setText("");
-        for (int i=0;i<texto.length;i++){
-            System.out.println(texto[i]);
-            rascunho=texto[i];
-            //texto[i].concat(" ");
-            if (rascunho.matches("vermelho")){
-                appendToPane(jTextPane, texto[i]+" ", Color.red);
-                appendToPane(jTextPane, "", Color.blue);
-            }
-            else{
-                appendToPane(jTextPane, texto[i]+" ", new Color(0,0,255));
-            }
-                
-        }
-       
-    }
-
     public void analisarTexto(){
         // Analisa todo o texto de jTextPane verificando se as cadeias encontradas devem ser coloridas ou não.
         // Utilizará AFD para analisar cada cadeia obtida.
@@ -248,12 +222,12 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
         // No for abaixo é feito o tratamento das strings (comentários com aspas) pois um comentário pode conter espaços e, assim, ter sido quebrado pelo split anterior
         // Após esse for cada comentário é remontado em uma única string 
         for (i=0;i<termosTextoProv.length;i++){
-            System.out.print(termosTextoProv[i]);
+            System.out.println(termosTextoProv[i]);
             if (termosTextoProv[i].endsWith("\n")){
                 enters++;
             }
             if (termosTextoProv[i].startsWith("\"")){ // Se é encontrado o início de uma string (termo que começa com ")
-                if (!termosTextoProv[i].endsWith("\"")){ // e esse termo não termina com " (significa que a string possui espaço e foi quebrada pelo split, precisando ser remontada)
+                if ((!termosTextoProv[i].endsWith("\"")&&(termosTextoProv[i].length()!=1))){ // e esse termo não termina com " (significa que a string possui espaço e foi quebrada pelo split, precisando ser remontada, ou nao será uma string por noa ter as outras aspas )
                     j=i+1;
                     while(j<termosTextoProv.length){ // controla o while para não exceder o vetor (pois a pessoa pode não ter colocado o segundo caracter ")
                         termosTextoProv[i]=termosTextoProv[i]+ " "+termosTextoProv[j];
@@ -264,14 +238,33 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
                         }
                         j++;
                     }
-                    if (j==termosTextoProv.length){ // Desiste de montar a string pois atingiu o final do vetor (a pessoa não colocou o segundo caracter ")
-                        break; 
+
+                    for (k=i+1;j<termosTextoProv.length;k++,j++){
+                        termosTextoProv[k]=termosTextoProv[j];
+                        termosTextoProv[j]="?"; // Apaga parte já deslocada
                     }
+                    //if (j==termosTextoProv.length){ // -> Retirado pois estava errado (nao partmitia 2 strings com espacos internos) Desiste de montar a string pois atingiu o final do vetor (a pessoa não colocou o segundo caracter ")
+                        //break; 
+                    //}
+                }
+                else if((termosTextoProv[i].endsWith("\"")&&(termosTextoProv[i].length()==1))){ // a string comeca com espaco )
+                    j=i+1;
+                    while(j<termosTextoProv.length){ // controla o while para não exceder o vetor (pois a pessoa pode não ter colocado o segundo caracter ")
+                        termosTextoProv[i]=termosTextoProv[i]+ " "+termosTextoProv[j];
+                        concatenacoes++; // conta as concatenações
+                        if (termosTextoProv[j].endsWith("\"")){ // ao encontrar o final da string (outro caracter final ") sai o while
+                            j++;
+                            break;
+                        }
+                        j++;
+                    }
+
                     for (k=i+1;j<termosTextoProv.length;k++,j++){
                         termosTextoProv[k]=termosTextoProv[j];
                         termosTextoProv[j]="?"; // Apaga parte já deslocada
                     }
                 }
+
             }
         }
         System.out.println(enters);
@@ -302,14 +295,14 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
             */
             
             //switch(metodoAFD(termosTexto[i])){ 
-            switch(metodoFalsoAFD(termosTexto[i])){ // substituir pela linha acima após a implementacao do método AFD;
+            switch(metodosAFD(termosTexto[i])){ // substituir pela linha acima após a implementacao do método AFD;
                 case 1:     appendToPane(jTextPane, termosTexto[i]+" ", Color.gray); //constante numérica(1)
                             break;
                 case 2:     appendToPane(jTextPane, termosTexto[i]+" ", Color.orange); //string(2)
                             break;
                 case 3:     appendToPane(jTextPane, termosTexto[i]+" ", Color.pink); //operador aritmético(3) 
                             break;
-                case 4:     appendToPane(jTextPane, termosTexto[i]+" ", Color.magenta); //operador lógico(4) (e rlacional)
+                case 4:     appendToPane(jTextPane, termosTexto[i]+" ", Color.magenta); //operador lógico(4) (e relacional)
                             break;
                 case 5:     appendToPane(jTextPane, termosTexto[i]+" ", Color.cyan); //atribuição (5)
                             break;
@@ -318,7 +311,7 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
                                 break;
                             }
                             else{
-                                appendToPane(jTextPane, termosTexto[i]+" ", Color.green); // colore como identificador
+                                appendToPane(jTextPane, termosTexto[i]+" ", Color.green); // se não for palavra reservada é, necessariamente, identificador
                                 break;
                             }
                             
@@ -343,48 +336,94 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
         return false;
     }
     
-    
-    public int metodoFalsoAFD(String s){
-        runAFD afd = new runAFD();
+    public int metodosAFD(String s){
         // Método falso e provisório para testes. Apenas simula algumas das análises e respostas do AFD a ser implementado
-        if(afd.runAFDNumeros(s)){
+
+        Pattern p1;
+        Matcher m1;
+        
+        runAFD afd = new runAFD();
+        
+        // USANDO AFD
+        if (afd.runAFDConstante(s)){
             return 1;
-        }
-        if(afd.runAFDAlfabeto(s)){
-            return 2;
-        }
-        Pattern p1 = Pattern.compile("[0-9]+");
-        Matcher m1=p1.matcher(s);
-//        if (m1.matches()){
-//            return 1;  //constante
-//        }        
+        };
+
+        // USANDO EXPRESSÕES REGULARES
+/*
+        p1 = Pattern.compile("[0-9]+(.[0-9]*){1}");
+        m1=p1.matcher(s);
+        if (m1.matches()){
+            return 1;  //constante
+        }        
+*/
+/*
         p1 = Pattern.compile("\"(.|\\s)*\"");
         m1=p1.matcher(s);
-//        if (m1.matches()){
-//            return 2;  // string
-//        }
+        if (m1.matches()){
+            return 2;  // string
+        }
+*/
+        if (afd.runAFDString(s)){
+            return 2;
+        };
+        
+ /*
         if (s.matches("\\+") || s.matches("-") || s.matches("\\*") || s.matches("/") || s.matches("%")){
             return 3; // op. aritm.
         }
-        if (s.matches("and") || s.matches("or") || s.matches("not") || s.matches("^") || s.matches("<") || s.matches(">") || s.matches("<=")|| s.matches(">=") || s.matches("==") || s.matches("~=")){
+*/
+        if (afd.runAFDAritmeticos(s)){
+            return 3;
+        };        
+
+        if (afd.runAFDOpLog(s)){
+            return 4;
+        };        
+
+        
+/*        if (s.matches("and") || s.matches("or") || s.matches("not") || s.matches("^") || s.matches("<") || s.matches(">") || s.matches("<=")|| s.matches(">=") || s.matches("==") || s.matches("~=")){
             return 4;  // op. lóg.
         }
+*/
+/*
         if (s.matches("=")){ // atrib.
             return 5;
         }
+*/
+        if (afd.runAFDAtribuicao(s)){
+            return 5;
+        };
+
+        
+        // USANDO AFD:
+        if (afd.runAFDParavrasReservadas(s)){
+            return 6;
+        };
+/*        
         p1 = Pattern.compile("[a-z][a-z][a-z]+"); // Todas palavras reservadas tem pelo menos 3 letras e são escritas com letras minusculas.
         m1=p1.matcher(s);
         if (m1.matches()){
             return 6;
         }
-        p1 = Pattern.compile("([a-z]|[A-Z]|_)(_|[a-z]|[A-Z]|[0-9])*");
+*/        
+        
+        if (afd.runAFDIdentificadores(s)){
+            return 7;
+        };
+
+/*      p1 = Pattern.compile("([a-z]|[A-Z]|_)(_|[a-z]|[A-Z]|[0-9])*");
         m1=p1.matcher(s);
         if (m1.matches()){ // identificadores
             return 7;
         }
+*/
+
         
         return 0; // padrao de retorno provisorio
     }
+    
+    
     
     
     public void appendToPane(JTextPane tp, String msg, Color c)
@@ -400,30 +439,6 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
         tp.setCharacterAttributes(aset, false);
         tp.replaceSelection(msg);
     }
-    /**
-     * Construye el área de edición.
-     */
-/*    private void buildTextArea() {
-        jTextPane = new JTextPane();    //construye un JTextPane
- 
-        //se configura por defecto para que se ajusten las líneas al tamaño del área de texto ...
-        jTextPane.setLineWrap(true);
-        //... y que se respete la integridad de las palaras en el ajuste
-        jTextPane.setWrapStyleWord(true);
- 
-        //asigna el manejador de eventos para el cursor
-        jTextPane.addCaretListener(eventHandler);
-        //asigna el manejador de eventos para el ratón
-        jTextPane.addMouseListener(eventHandler);
-        //asigna el manejador de eventos para registrar los cambios sobre el documento
-        jTextPane.getDocument().addUndoableEditListener(eventHandler);
- 
-        //remueve las posibles combinaciones de teclas asociadas por defecto con el JTextPane
-        jTextPane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK), "none");    //remueve CTRL + X ("Cortar")
-        jTextPane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK), "none");    //remueve CTRL + C ("Copiar")
-        jTextPane.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK), "none");    //remueve CTRL + V ("Pegar")
-    }
-*/
     
     private void buildTextPane() {
         jTextPane = new JTextPane();    //construye un JTextPane
@@ -933,7 +948,11 @@ public class TPEditor extends Applet implements ActionListener, KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
       
-
+      //if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+       //   analisarTexto();  
+          //colorirTexto();  
+          
+     // }
     }
 
     @Override
