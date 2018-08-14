@@ -23,17 +23,47 @@ import java.util.logging.Logger;
 
 public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
-    
+
 
     private final int LC1 = 20, LC2=50, LC3=80, LC4=110, LC5=140, LC6=170, LC7=200;
     private final int W = 16, H = 15;
 
-    private final JRadioButton check [][] = new JRadioButton[6][6];
+    public JRadioButton check [][] = new JRadioButton[7][7];
 
     Stats stats = new Stats();
 
     public TabuleiroTeste()
     {
+        check[0][0] = new JRadioButton();
+        check[3][0] = new JRadioButton();
+        check[6][0] = new JRadioButton();
+
+        check[1][1] = new JRadioButton();
+        check[3][1] = new JRadioButton();
+        check[5][1] = new JRadioButton();
+
+        check[2][2] = new JRadioButton();
+        check[3][2] = new JRadioButton();
+        check[4][2] = new JRadioButton();
+
+        check[0][3] = new JRadioButton();
+        check[1][3] = new JRadioButton();
+        check[2][3] = new JRadioButton();
+        check[4][3] = new JRadioButton();
+        check[5][3] = new JRadioButton();
+        check[6][3] = new JRadioButton();
+
+        check[2][4] = new JRadioButton();
+        check[3][4] = new JRadioButton();
+        check[4][4] = new JRadioButton();
+
+        check[1][5] = new JRadioButton();
+        check[3][5] = new JRadioButton();
+        check[5][5] = new JRadioButton();
+
+        check[0][6] = new JRadioButton();
+        check[3][6] = new JRadioButton();
+        check[6][6] = new JRadioButton();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(null);
@@ -67,10 +97,10 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
         check[1][5].setBounds(LC6, LC2, W, H);
         check[3][5].setBounds(LC6, LC4, W, H);
         check[5][5].setBounds(LC6, LC6, W, H);
-        
-        check[0][6].setBounds(LC6, LC2, W, H);
-        check[3][6].setBounds(LC6, LC4, W, H);
-        check[6][6].setBounds(LC6, LC6, W, H);
+
+        check[0][6].setBounds(LC7, LC1, W, H);
+        check[3][6].setBounds(LC7, LC4, W, H);
+        check[6][6].setBounds(LC7, LC7, W, H);
 
         add(check[0][0]);
         add(check[3][0]);
@@ -98,63 +128,73 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
         add(check[1][5]);
         add(check[3][5]);
         add(check[5][5]);
+
+        add(check[0][6]);
+        add(check[3][6]);
+        add(check[6][6]);
     }
 
     public void addListener(){
-        check[0][6].addActionListener(this);
-        check[3][6].addActionListener(this);
-        check[6][6].addActionListener(this);
         check[0][0].addActionListener(this);
         check[3][0].addActionListener(this);
         check[6][0].addActionListener(this);
+
         check[1][1].addActionListener(this);
         check[3][1].addActionListener(this);
         check[5][1].addActionListener(this);
+
         check[2][2].addActionListener(this);
         check[3][2].addActionListener(this);
         check[4][2].addActionListener(this);
+
         check[0][3].addActionListener(this);
         check[1][3].addActionListener(this);
         check[2][3].addActionListener(this);
         check[4][3].addActionListener(this);
         check[5][3].addActionListener(this);
         check[6][3].addActionListener(this);
+
         check[2][4].addActionListener(this);
         check[3][4].addActionListener(this);
         check[4][4].addActionListener(this);
+
         check[1][5].addActionListener(this);
         check[3][5].addActionListener(this);
         check[5][5].addActionListener(this);
+
         check[0][6].addActionListener(this);
         check[3][6].addActionListener(this);
         check[6][6].addActionListener(this);
     }
 
     private void blockRadioButton(){
-        check[0][6].setEnabled(false);
-        check[3][6].setEnabled(false);
-        check[6][6].setEnabled(false);
         check[0][0].setEnabled(false);
         check[3][0].setEnabled(false);
         check[6][0].setEnabled(false);
+
         check[1][1].setEnabled(false);
         check[3][1].setEnabled(false);
         check[5][1].setEnabled(false);
+
         check[2][2].setEnabled(false);
         check[3][2].setEnabled(false);
         check[4][2].setEnabled(false);
+
         check[0][3].setEnabled(false);
         check[1][3].setEnabled(false);
         check[2][3].setEnabled(false);
         check[4][3].setEnabled(false);
         check[5][3].setEnabled(false);
         check[6][3].setEnabled(false);
+
         check[2][4].setEnabled(false);
         check[3][4].setEnabled(false);
         check[4][4].setEnabled(false);
+
         check[1][5].setEnabled(false);
         check[3][5].setEnabled(false);
         check[5][5].setEnabled(false);
+
         check[0][6].setEnabled(false);
         check[3][6].setEnabled(false);
         check[6][6].setEnabled(false);
@@ -163,7 +203,6 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
     public void paint(Graphics g) {
         int adjvx1 = 18, adjvy1 = 44, adjvy2 = 32;
-        addButtons();
         super.paint(g);
         Graphics2D g2 = (Graphics2D) g;
         Line2D lin = new Line2D.Float(10, 25, 445, 25);
@@ -321,74 +360,74 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
             if(e.getSource() == check[0][0]){
                 stats.setMatrix(0, 0);
             }
-            if(e.getSource() == check[0][3]){
+            if(e.getSource() == check[3][0]){
                 stats.setMatrix(3, 0);
             }
-            if(e.getSource() == check[0][6]){
+            if(e.getSource() == check[6][0]){
                 stats.setMatrix(6, 0);
             }
-            if(e.getSource() == check[][]){
+            if(e.getSource() == check[1][1]){
                 stats.setMatrix(1, 1);
             }
-            if(e.getSource() == check[][]){
+            if(e.getSource() == check[3][1]){
                 stats.setMatrix(3, 1);
             }
-            if(e.getSource() == check[][]){
+            if(e.getSource() == check[5][1]){
                 stats.setMatrix(5, 1);
             }
-            if(e.getSource() == check[][]){
+            if(e.getSource() == check[2][2]){
                 stats.setMatrix(2, 2);
                 return;
             }
-            if(e.getSource() == check[][]){
+            if(e.getSource() == check[3][2]){
                 stats.setMatrix(3, 2);
             }
-            if(e.getSource() == check[][]){
+            if(e.getSource() == check[4][2]){
                 stats.setMatrix(4, 2);
             }
-            if(e.getSource() == check10){
+            if(e.getSource() == check[0][3]){
                 stats.setMatrix(0, 3);
             }
-            if(e.getSource() == check11){
+            if(e.getSource() == check[1][3]){
                 stats.setMatrix(1, 3);
             }
-            if(e.getSource() == check12){
+            if(e.getSource() == check[2][3]){
                 stats.setMatrix(2, 3);
             }
-            if(e.getSource() == check13){
+            if(e.getSource() == check[4][3]){
                 stats.setMatrix(4, 3);
             }
-            if(e.getSource() == check14){
+            if(e.getSource() == check[5][3]){
                 stats.setMatrix(5, 3);
             }
-            if(e.getSource() == check15){
+            if(e.getSource() == check[6][3]){
                 stats.setMatrix(6, 3);
             }
-            if(e.getSource() == check16){
+            if(e.getSource() == check[2][4]){
                 stats.setMatrix(2, 4);
             }
-            if(e.getSource() == check17){
+            if(e.getSource() == check[3][4]){
                 stats.setMatrix(3, 4);
             }
-            if(e.getSource() == check18){
+            if(e.getSource() == check[4][4]){
                 stats.setMatrix(4, 4);
             }
-            if(e.getSource() == check19){
+            if(e.getSource() == check[1][5]){
                 stats.setMatrix(1, 5);
             }
-            if(e.getSource() == check20){
+            if(e.getSource() == check[3][5]){
                 stats.setMatrix(3, 5);
             }
-            if(e.getSource() == check21){
+            if(e.getSource() == check[5][5]){
                 stats.setMatrix(5, 5);
             }
-            if(e.getSource() == check22){
+            if(e.getSource() == check[0][6]){
                 stats.setMatrix(0, 6);
             }
-            if(e.getSource() == check23){
+            if(e.getSource() == check[3][6]){
                 stats.setMatrix(3, 6);
             }
-            if(e.getSource() == check24){
+            if(e.getSource() == check[6][6]){
                 stats.setMatrix(6, 6);
             }
         }

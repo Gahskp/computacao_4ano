@@ -11,7 +11,7 @@ package ninemanmorris;
  */
 public class Stats {
     private boolean player1;
-    int[][] matrix = new int[6][6];
+    int[][] matrix = new int[7][7];
     private int pieces = 0;
 
     public Stats(){
