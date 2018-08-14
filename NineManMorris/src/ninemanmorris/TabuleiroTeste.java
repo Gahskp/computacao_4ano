@@ -356,82 +356,111 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        /*************************************************/
+        /* Fase 1 do jogo: colocar as peças no tabuleiro */
+        /*************************************************/
         if(stats.getPieces() < 18){
             if(e.getSource() == check[0][0]){
                 stats.setMatrix(0, 0);
+                check[0][0].setEnabled(false);
             }
             if(e.getSource() == check[3][0]){
                 stats.setMatrix(3, 0);
+                check[3][0].setEnabled(false);
             }
             if(e.getSource() == check[6][0]){
                 stats.setMatrix(6, 0);
+                check[6][0].setEnabled(false);
             }
             if(e.getSource() == check[1][1]){
                 stats.setMatrix(1, 1);
+                check[1][1].setEnabled(false);
             }
             if(e.getSource() == check[3][1]){
                 stats.setMatrix(3, 1);
+                check[3][1].setEnabled(false);
             }
             if(e.getSource() == check[5][1]){
                 stats.setMatrix(5, 1);
+                check[5][1].setEnabled(false);
             }
             if(e.getSource() == check[2][2]){
                 stats.setMatrix(2, 2);
-                return;
+                check[2][2].setEnabled(false);
             }
             if(e.getSource() == check[3][2]){
                 stats.setMatrix(3, 2);
+                check[3][2].setEnabled(false);
             }
             if(e.getSource() == check[4][2]){
                 stats.setMatrix(4, 2);
+                check[4][2].setEnabled(false);
             }
             if(e.getSource() == check[0][3]){
                 stats.setMatrix(0, 3);
+                check[0][3].setEnabled(false);
             }
             if(e.getSource() == check[1][3]){
                 stats.setMatrix(1, 3);
+                check[1][3].setEnabled(false);
             }
             if(e.getSource() == check[2][3]){
                 stats.setMatrix(2, 3);
+                check[2][3].setEnabled(false);
             }
             if(e.getSource() == check[4][3]){
                 stats.setMatrix(4, 3);
+                check[4][3].setEnabled(false);
             }
             if(e.getSource() == check[5][3]){
                 stats.setMatrix(5, 3);
+                check[5][3].setEnabled(false);
             }
             if(e.getSource() == check[6][3]){
                 stats.setMatrix(6, 3);
+                check[6][3].setEnabled(false);
             }
             if(e.getSource() == check[2][4]){
                 stats.setMatrix(2, 4);
+                check[2][4].setEnabled(false);
             }
             if(e.getSource() == check[3][4]){
                 stats.setMatrix(3, 4);
+                check[3][4].setEnabled(false);
             }
             if(e.getSource() == check[4][4]){
                 stats.setMatrix(4, 4);
+                check[4][4].setEnabled(false);
             }
             if(e.getSource() == check[1][5]){
                 stats.setMatrix(1, 5);
+                check[1][5].setEnabled(false);
             }
             if(e.getSource() == check[3][5]){
                 stats.setMatrix(3, 5);
+                check[3][5].setEnabled(false);
             }
             if(e.getSource() == check[5][5]){
                 stats.setMatrix(5, 5);
+                check[5][5].setEnabled(false);
             }
             if(e.getSource() == check[0][6]){
                 stats.setMatrix(0, 6);
+                check[0][6].setEnabled(false);
             }
             if(e.getSource() == check[3][6]){
                 stats.setMatrix(3, 6);
+                check[3][6].setEnabled(false);
             }
             if(e.getSource() == check[6][6]){
                 stats.setMatrix(6, 6);
+                check[6][6].setEnabled(false);
             }
         }
 
+        /**********************************/
+        /* Fase 2 do jogo: mover as peças */
+        /**********************************/
         if(stats.getPieces() >= 18) blockRadioButton(); //Bloqueia o campo quando todas as peças estão em jogo
 
 //        if(stats.getPlayer1())
