@@ -359,7 +359,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
         /*************************************************/
         /* Fase 1 do jogo: colocar as peças no tabuleiro */
         /*************************************************/
-        if(stats.getPieces() < 18){
+        if(stats.getFase1()){
             if(e.getSource() == check[0][0]){
                 stats.setMatrix(0, 0);
                 check[0][0].setEnabled(false);
@@ -457,13 +457,28 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 check[6][6].setEnabled(false);
             }
         }
-
+        
+        /* Controle de Fases */
+        if(stats.getPieces() >= 18){
+            stats.setFase1(false);
+            stats.setFase2(true);
+            stats.setPlayer1(true);
+        }
+        
         /**********************************/
         /* Fase 2 do jogo: mover as peças */
         /**********************************/
-        if(stats.getPieces() >= 18) blockRadioButton(); //Bloqueia o campo quando todas as peças estão em jogo
-
-//        if(stats.getPlayer1())
+        if(stats.getFase2()){         
+            blockRadioButton(); //Bloqueia o campo quando todas as peças estão em jogo
+            
+            for(int i = 0; i<7; i++){
+                for(int j = 0; j<7; j++){
+                    if(stats.getPlayer1()){
+                        if(stats.getMatrix(i, j) == 1) check[i][j].setEnabled(true);
+                    } else if(stats.getMatrix(i, j) == -1) check[i][j].setEnabled(true);
+                }
+            }
+        }
 
 
         /* If com o objetivo de controlar a vez dos jogadores */
@@ -475,6 +490,8 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
         /* Retorna a Matriz de posições */
         stats.getMatrix();
+        
+        
     }
 
 }

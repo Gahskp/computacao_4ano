@@ -13,9 +13,13 @@ public class Stats {
     private boolean player1;
     int[][] matrix = new int[7][7];
     private int pieces = 0;
+    private boolean fase1, fase2, fase3;
 
     public Stats(){
         player1 = true;
+        fase1 = true;
+        fase2 = false;
+        fase3 = false;
         for(int i=0;i<7;i++){
             for(int j=0; j<7; j++){
                 matrix[i][j] = 0;
@@ -81,6 +85,26 @@ public class Stats {
         i = i + 4;
       }
       return false;
+    }
+    
+    public boolean getFase1(){
+        return fase1;
+    }
+    
+    public void setFase1(boolean s){
+        fase1 = s;
+    }
+    
+    public boolean getFase2(){
+        return fase2;
+    }
+    
+    public void setFase2(boolean s){
+        fase2 = s;
+    }
+    
+    public boolean getFase3(){
+        return fase3;
     }
 
 }
