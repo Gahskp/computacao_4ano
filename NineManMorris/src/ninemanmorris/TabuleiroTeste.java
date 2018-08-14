@@ -14,6 +14,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author oliver
@@ -21,132 +23,143 @@ import java.awt.event.ActionEvent;
 
 public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
-    private final JRadioButton check1, check2, check3, check4, check5, check6,
-        check7, check8, check9, check10, check11, check12, check13, check14, check15,
-        check16, check17, check18, check19, check20, check21, check22, check23, check24;
+    
 
     private final int LC1 = 20, LC2=50, LC3=80, LC4=110, LC5=140, LC6=170, LC7=200;
     private final int W = 16, H = 15;
+
+    private final JRadioButton check [][] = new JRadioButton[6][6];
 
     Stats stats = new Stats();
 
     public TabuleiroTeste()
     {
-        check1 = new JRadioButton();
-        check2 = new JRadioButton();
-        check3 = new JRadioButton();
-        check4 = new JRadioButton();
-        check5 = new JRadioButton();
-        check6 = new JRadioButton();
-        check7 = new JRadioButton();
-        check8 = new JRadioButton();
-        check9 = new JRadioButton();
-        check10 = new JRadioButton();
-        check11 = new JRadioButton();
-        check12 = new JRadioButton();
-        check13 = new JRadioButton();
-        check14 = new JRadioButton();
-        check15 = new JRadioButton();
-        check16 = new JRadioButton();
-        check17 = new JRadioButton();
-        check18 = new JRadioButton();
-        check19 = new JRadioButton();
-        check20 = new JRadioButton();
-        check21 = new JRadioButton();
-        check22 = new JRadioButton();
-        check23 = new JRadioButton();
-        check24 = new JRadioButton();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setLayout(null);
         setVisible(true);
-        new Thread();
     }
 
     public void addButtons(){
-        check1.setBounds(LC1, LC1, W, H);
-        check2.setBounds(LC1, LC4, W, H);
-        check3.setBounds(LC1, LC7, W, H);
+        check[0][0].setBounds(LC1, LC1, W, H);
+        check[3][0].setBounds(LC1, LC4, W, H);
+        check[6][0].setBounds(LC1, LC7, W, H);
 
-        check4.setBounds(LC2, LC2, W, H);
-        check5.setBounds(LC2, LC4, W, H);
-        check6.setBounds(LC2, LC6, W, H);
+        check[1][1].setBounds(LC2, LC2, W, H);
+        check[3][1].setBounds(LC2, LC4, W, H);
+        check[5][1].setBounds(LC2, LC6, W, H);
 
-        check7.setBounds(LC3, LC3, W, H);
-        check8.setBounds(LC3, LC4, W, H);
-        check9.setBounds(LC3, LC5, W, H);
+        check[2][2].setBounds(LC3, LC3, W, H);
+        check[3][2].setBounds(LC3, LC4, W, H);
+        check[4][2].setBounds(LC3, LC5, W, H);
 
-        check10.setBounds(LC4, LC1, W, H);
-        check11.setBounds(LC4, LC2, W, H);
-        check12.setBounds(LC4, LC3, W, H);
-        check13.setBounds(LC4, LC5, W, H);
-        check14.setBounds(LC4, LC6, W, H);
-        check15.setBounds(LC4, LC7, W, H);
+        check[0][3].setBounds(LC4, LC1, W, H);
+        check[1][3].setBounds(LC4, LC2, W, H);
+        check[2][3].setBounds(LC4, LC3, W, H);
+        check[4][3].setBounds(LC4, LC5, W, H);
+        check[5][3].setBounds(LC4, LC6, W, H);
+        check[6][3].setBounds(LC4, LC7, W, H);
 
-        check16.setBounds(LC5, LC3, W, H);
-        check17.setBounds(LC5, LC4, W, H);
-        check18.setBounds(LC5, LC5, W, H);
+        check[2][4].setBounds(LC5, LC3, W, H);
+        check[3][4].setBounds(LC5, LC4, W, H);
+        check[4][4].setBounds(LC5, LC5, W, H);
 
-        check19.setBounds(LC6, LC2, W, H);
-        check20.setBounds(LC6, LC4, W, H);
-        check21.setBounds(LC6, LC6, W, H);
+        check[1][5].setBounds(LC6, LC2, W, H);
+        check[3][5].setBounds(LC6, LC4, W, H);
+        check[5][5].setBounds(LC6, LC6, W, H);
+        
+        check[0][6].setBounds(LC6, LC2, W, H);
+        check[3][6].setBounds(LC6, LC4, W, H);
+        check[6][6].setBounds(LC6, LC6, W, H);
 
-        check22.setBounds(LC7, LC1, W, H);
-        check23.setBounds(LC7, LC4, W, H);
-        check24.setBounds(LC7, LC7, W, H);
+        add(check[0][0]);
+        add(check[3][0]);
+        add(check[6][0]);
 
-        add(check1);
-        add(check2);
-        add(check3);
-        add(check4);
-        add(check5);
-        add(check6);
-        add(check7);
-        add(check8);
-        add(check9);
-        add(check10);
-        add(check11);
-        add(check12);
-        add(check13);
-        add(check14);
-        add(check15);
-        add(check16);
-        add(check17);
-        add(check18);
-        add(check19);
-        add(check20);
-        add(check21);
-        add(check22);
-        add(check23);
-        add(check24);
+        add(check[1][1]);
+        add(check[3][1]);
+        add(check[5][1]);
+
+        add(check[2][2]);
+        add(check[3][2]);
+        add(check[4][2]);
+
+        add(check[0][3]);
+        add(check[1][3]);
+        add(check[2][3]);
+        add(check[4][3]);
+        add(check[5][3]);
+        add(check[6][3]);
+
+        add(check[2][4]);
+        add(check[3][4]);
+        add(check[4][4]);
+
+        add(check[1][5]);
+        add(check[3][5]);
+        add(check[5][5]);
     }
 
     public void addListener(){
-        check1.addActionListener(this);
-        check2.addActionListener(this);
-        check3.addActionListener(this);
-        check4.addActionListener(this);
-        check5.addActionListener(this);
-        check6.addActionListener(this);
-        check7.addActionListener(this);
-        check8.addActionListener(this);
-        check9.addActionListener(this);
-        check10.addActionListener(this);
-        check11.addActionListener(this);
-        check12.addActionListener(this);
-        check13.addActionListener(this);
-        check14.addActionListener(this);
-        check15.addActionListener(this);
-        check16.addActionListener(this);
-        check17.addActionListener(this);
-        check18.addActionListener(this);
-        check19.addActionListener(this);
-        check20.addActionListener(this);
-        check21.addActionListener(this);
-        check22.addActionListener(this);
-        check23.addActionListener(this);
-        check24.addActionListener(this);
+        check[0][6].addActionListener(this);
+        check[3][6].addActionListener(this);
+        check[6][6].addActionListener(this);
+        check[0][0].addActionListener(this);
+        check[3][0].addActionListener(this);
+        check[6][0].addActionListener(this);
+        check[1][1].addActionListener(this);
+        check[3][1].addActionListener(this);
+        check[5][1].addActionListener(this);
+        check[2][2].addActionListener(this);
+        check[3][2].addActionListener(this);
+        check[4][2].addActionListener(this);
+        check[0][3].addActionListener(this);
+        check[1][3].addActionListener(this);
+        check[2][3].addActionListener(this);
+        check[4][3].addActionListener(this);
+        check[5][3].addActionListener(this);
+        check[6][3].addActionListener(this);
+        check[2][4].addActionListener(this);
+        check[3][4].addActionListener(this);
+        check[4][4].addActionListener(this);
+        check[1][5].addActionListener(this);
+        check[3][5].addActionListener(this);
+        check[5][5].addActionListener(this);
+        check[0][6].addActionListener(this);
+        check[3][6].addActionListener(this);
+        check[6][6].addActionListener(this);
     }
+
+    private void blockRadioButton(){
+        check[0][6].setEnabled(false);
+        check[3][6].setEnabled(false);
+        check[6][6].setEnabled(false);
+        check[0][0].setEnabled(false);
+        check[3][0].setEnabled(false);
+        check[6][0].setEnabled(false);
+        check[1][1].setEnabled(false);
+        check[3][1].setEnabled(false);
+        check[5][1].setEnabled(false);
+        check[2][2].setEnabled(false);
+        check[3][2].setEnabled(false);
+        check[4][2].setEnabled(false);
+        check[0][3].setEnabled(false);
+        check[1][3].setEnabled(false);
+        check[2][3].setEnabled(false);
+        check[4][3].setEnabled(false);
+        check[5][3].setEnabled(false);
+        check[6][3].setEnabled(false);
+        check[2][4].setEnabled(false);
+        check[3][4].setEnabled(false);
+        check[4][4].setEnabled(false);
+        check[1][5].setEnabled(false);
+        check[3][5].setEnabled(false);
+        check[5][5].setEnabled(false);
+        check[0][6].setEnabled(false);
+        check[3][6].setEnabled(false);
+        check[6][6].setEnabled(false);
+    }
+
 
     public void paint(Graphics g) {
         int adjvx1 = 18, adjvy1 = 44, adjvy2 = 32;
@@ -277,7 +290,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
         lin.setLine(LC6+adjttx1, LC2+adjtty1, LC7+adjttx2, LC1+adjtty2);
         g2.draw(lin);
     }
-    
+
 //    public void threadIsTrilha(){
 //        new Thread(){
 //            @Override
@@ -290,41 +303,47 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 //    }
     @Override
     public void run(){
-        if(stats.isTrilha()){
-            System.out.println("TRILHA");
-        }
+//        while(true){
+//            if(stats.isTrilha()){
+//                try {
+//                    Thread.sleep(10000);
+//                } catch (InterruptedException ex) {
+//                    System.out.println("Thread.sleep ERROR");;
+//                }
+//            }
+//        }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         if(stats.getPieces() < 18){
-            if(e.getSource() == check1){
+            if(e.getSource() == check[0][0]){
                 stats.setMatrix(0, 0);
             }
-            if(e.getSource() == check2){
+            if(e.getSource() == check[0][3]){
                 stats.setMatrix(3, 0);
             }
-            if(e.getSource() == check3){
+            if(e.getSource() == check[0][6]){
                 stats.setMatrix(6, 0);
             }
-            if(e.getSource() == check4){
+            if(e.getSource() == check[][]){
                 stats.setMatrix(1, 1);
             }
-            if(e.getSource() == check5){
+            if(e.getSource() == check[][]){
                 stats.setMatrix(3, 1);
             }
-            if(e.getSource() == check6){
+            if(e.getSource() == check[][]){
                 stats.setMatrix(5, 1);
             }
-            if(e.getSource() == check7){
+            if(e.getSource() == check[][]){
                 stats.setMatrix(2, 2);
                 return;
             }
-            if(e.getSource() == check8){
+            if(e.getSource() == check[][]){
                 stats.setMatrix(3, 2);
             }
-            if(e.getSource() == check9){
+            if(e.getSource() == check[][]){
                 stats.setMatrix(4, 2);
             }
             if(e.getSource() == check10){
@@ -373,10 +392,20 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 stats.setMatrix(6, 6);
             }
         }
-        if(stats.isTrilha()){
-            System.out.println("TRILHA");
-            System.out.println(stats.getPlayer1());
+
+        if(stats.getPieces() >= 18) blockRadioButton(); //Bloqueia o campo quando todas as peças estão em jogo
+
+//        if(stats.getPlayer1())
+
+
+        /* If com o objetivo de controlar a vez dos jogadores */
+        if(stats.getPlayer1()) {
+            stats.setPlayer1(false);
+        } else {
+            stats.setPlayer1(true);
         }
+
+        /* Retorna a Matriz de posições */
         stats.getMatrix();
     }
 

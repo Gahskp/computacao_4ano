@@ -30,6 +30,11 @@ public class NineManMorris extends Thread {
         
         Thread threadTabuleiro = new Thread(tabuleiro);
         threadTabuleiro.start();
+//        while(true) {
+//            if(threadTabuleiro.isInterrupted()){
+//                System.out.println("Marcar como trilha já encontrada e esperar a remoção de uma peça do adversário");
+//            }
+//        }
         
     }
     

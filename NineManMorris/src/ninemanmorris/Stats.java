@@ -11,7 +11,7 @@ package ninemanmorris;
  */
 public class Stats {
     private boolean player1;
-    int[][] matrix = new int[7][7];
+    int[][] matrix = new int[6][6];
     private int pieces = 0;
 
     public Stats(){
@@ -26,11 +26,13 @@ public class Stats {
         pieces++;
         if(player1){
             matrix[i][j] = 1;
-            player1 = false;
         } else {
             matrix[i][j] = -1;
-            player1 = true;
         }
+    }
+
+    public void setPlayer1(boolean s){
+        player1 = s;
     }
 
     public boolean getPlayer1(){
@@ -45,6 +47,10 @@ public class Stats {
             System.out.println(" ");
         }
         System.out.println("=========================================");
+    }
+
+    public int getMatrix(int i, int j){
+        return matrix[i][j];
     }
 
     public int getPieces(){
