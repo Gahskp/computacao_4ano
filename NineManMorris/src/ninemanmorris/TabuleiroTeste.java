@@ -358,7 +358,87 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
             trilha[0] = true;
             return true;
         }
+        if(stats.getMatrix(0, 0) == stats.getMatrix(0, 3) && stats.getMatrix(0, 3) == stats.getMatrix(0, 6)
+                    && stats.getMatrix(0, 3) != 0 && trilha[1] == false){
+            trilha[1] = true;
+            return true;
+        }
+        if(stats.getMatrix(0, 6) == stats.getMatrix(3, 6) && stats.getMatrix(3, 6) == stats.getMatrix(6, 6)
+                    && stats.getMatrix(3, 6) != 0 && trilha[2] == false){
+            trilha[2] = true;
+            return true;
+        }
+        if(stats.getMatrix(6, 0) == stats.getMatrix(6, 3) && stats.getMatrix(6, 3) == stats.getMatrix(6, 6)
+                    && stats.getMatrix(6, 3) != 0 && trilha[3] == false){
+            trilha[3] = true;
+            return true;
+        }
+        if(stats.getMatrix(1, 1) == stats.getMatrix(3, 1) && stats.getMatrix(3, 1) == stats.getMatrix(5, 1)
+                    && stats.getMatrix(3, 1) != 0 && trilha[4] == false){
+            trilha[4] = true;
+            return true;
+        }
+        if(stats.getMatrix(1, 1) == stats.getMatrix(1, 3) && stats.getMatrix(1, 3) == stats.getMatrix(1, 5)
+                    && stats.getMatrix(1, 3) != 0 && trilha[5] == false){
+            trilha[5] = true;
+            return true;
+        }
+        if(stats.getMatrix(1, 5) == stats.getMatrix(3, 5) && stats.getMatrix(3, 5) == stats.getMatrix(5, 5)
+                    && stats.getMatrix(3, 5) != 0 && trilha[6] == false){
+            trilha[6] = true;
+            return true;
+        }
+        if(stats.getMatrix(5, 1) == stats.getMatrix(5, 3) && stats.getMatrix(5, 3) == stats.getMatrix(5, 5)
+                    && stats.getMatrix(5, 3) != 0 && trilha[7] == false){
+            trilha[7] = true;
+            return true;
+        }
+        if(stats.getMatrix(2, 2) == stats.getMatrix(3, 2) && stats.getMatrix(3, 2) == stats.getMatrix(4, 2)
+                    && stats.getMatrix(3, 2) != 0 && trilha[8] == false){
+            trilha[8] = true;
+            return true;
+        }
+        if(stats.getMatrix(2, 2) == stats.getMatrix(2, 3) && stats.getMatrix(2, 3) == stats.getMatrix(2, 4)
+                    && stats.getMatrix(2, 3) != 0 && trilha[9] == false){
+            trilha[9] = true;
+            return true;
+        }
+        if(stats.getMatrix(2, 4) == stats.getMatrix(3, 4) && stats.getMatrix(3, 4) == stats.getMatrix(4, 4)
+                    && stats.getMatrix(3, 4) != 0 && trilha[1] == false){
+            trilha[10] = true;
+            return true;
+        }
+        if(stats.getMatrix(4, 2) == stats.getMatrix(4, 3) && stats.getMatrix(4, 3) == stats.getMatrix(4, 4)
+                    && stats.getMatrix(4, 3) != 0 && trilha[11] == false){
+            trilha[11] = true;
+            return true;
+        }
+        if(stats.getMatrix(3, 0) == stats.getMatrix(3, 1) && stats.getMatrix(3, 1) == stats.getMatrix(3, 2)
+                    && stats.getMatrix(3, 1) != 0 && trilha[12] == false){
+            trilha[12] = true;
+            return true;
+        }
+        if(stats.getMatrix(0, 3) == stats.getMatrix(1, 3) && stats.getMatrix(1, 3) == stats.getMatrix(2, 3)
+                    && stats.getMatrix(1, 3) != 0 && trilha[13] == false){
+            trilha[13] = true;
+            return true;
+        }
+        if(stats.getMatrix(3, 4) == stats.getMatrix(3, 5) && stats.getMatrix(3, 5) == stats.getMatrix(3, 6)
+                    && stats.getMatrix(3, 5) != 0 && trilha[14] == false){
+            trilha[14] = true;
+            return true;
+        }
+        if(stats.getMatrix(4, 3) == stats.getMatrix(5, 3) && stats.getMatrix(5, 3) == stats.getMatrix(6, 3)
+                    && stats.getMatrix(5, 3) != 0 && trilha[15] == false){
+            trilha[15] = true;
+            return true;
+        }
         return false;
+    }
+    
+    public void resetTrilha(){
+        if((stats.getMatrix(0, 0) != stats.getMatrix(3, 0) || stats.getMatrix(3, 0) != stats.getMatrix(6, 0))
+                    && trilha[0] == true) trilha[0] = false;
     }
 
     public void removePedra(){
@@ -372,7 +452,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
             }
         }
         
-        fase = 4;
+        fase = 4; 
     }
 
     public void setRadioAfterRemove(){
@@ -497,9 +577,12 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     stats.setMatrix(6, 6);
                     check[6][6].setEnabled(false);
                 }
+                
+                resetTrilha();
                
                 if(isTrilha()){
                     removePedra();
+                    break;
                 }
 
                 /* If com o objetivo de controlar a vez dos jogadores */
@@ -664,6 +747,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     if(stats.getMatrix(3, 6) == 0) check[3][6].setEnabled(true);
                     if(stats.getMatrix(6, 3) == 0) check[6][3].setEnabled(true);
                 }
+                
                 fase = 3;
                 break;
 
@@ -768,6 +852,14 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 if(e.getSource() == check[6][6]){
                     stats.setMatrix(6, 6);
                     check[6][6].setEnabled(false);
+                }
+                
+                resetTrilha();
+                System.out.println(trilha[0]+"###################################");
+               
+                if(isTrilha()){
+                    removePedra();
+                    break;
                 }
 
                 if(stats.getPlayer1()) stats.setPlayer1(false);
@@ -875,6 +967,8 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     }
                 } else {
                     fase = 1;
+                    if(stats.getPlayer1()) stats.setPlayer1(false);
+                    else stats.setPlayer1(true);
                     blockRadioButton();
                     setRadioAfterRemove();
                 }
