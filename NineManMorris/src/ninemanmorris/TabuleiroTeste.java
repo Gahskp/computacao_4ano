@@ -26,7 +26,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
 
     private final int LC1 = 20, LC2=50, LC3=80, LC4=110, LC5=140, LC6=170, LC7=200;
-    private final int W = 16, H = 15;
+    private final int W = 20, H = 15;
 
     public JRadioButton check [][] = new JRadioButton[7][7];
 
@@ -901,7 +901,6 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 }
 
                 resetTrilha();
-                System.out.println(trilha[3]+"###################################");
 
                 if(isTrilha()){
                     removePedra();
@@ -1025,7 +1024,21 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
             default:
         }
-
+        
+        for(int i = 0; i<7; i++){
+            for(int j = 0; j<7; j++){
+                if(stats.getMatrix(i, j) == -1) check[i][j].setBackground(Color.LIGHT_GRAY);
+                else if(stats.getMatrix(i, j) == 1) check[i][j].setBackground(Color.DARK_GRAY);
+                else if(stats.getMatrix(i, j) == 0) {
+                    try {
+                        check[i][j].setBackground(null);
+                    } catch (NullPointerException ex) {
+                        //tratamento do erro
+                    }
+                }
+               
+            }
+        }
         /* Retorna a Matriz de posições */
         stats.getMatrix();
 
