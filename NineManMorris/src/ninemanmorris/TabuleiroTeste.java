@@ -435,10 +435,56 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
         }
         return false;
     }
-    
+
     public void resetTrilha(){
         if((stats.getMatrix(0, 0) != stats.getMatrix(3, 0) || stats.getMatrix(3, 0) != stats.getMatrix(6, 0))
                     && trilha[0] == true) trilha[0] = false;
+
+        if((stats.getMatrix(0, 0) != stats.getMatrix(0, 3) || stats.getMatrix(0, 3) != stats.getMatrix(0, 6))
+                    && trilha[1] == true) trilha[1] = false;
+
+        if((stats.getMatrix(0, 6) != stats.getMatrix(3, 6) || stats.getMatrix(3, 6) != stats.getMatrix(6, 6))
+                    && trilha[2] == true) trilha[2] = false;
+
+        if((stats.getMatrix(6, 0) != stats.getMatrix(6, 3) || stats.getMatrix(6, 3) != stats.getMatrix(6, 6))
+                    && trilha[3] == false) trilha[3] = false;
+
+        if((stats.getMatrix(1, 1) != stats.getMatrix(3, 1) || stats.getMatrix(3, 1) != stats.getMatrix(5, 1))
+                    && trilha[4] == true) trilha[4] = false;
+
+        if((stats.getMatrix(1, 1) != stats.getMatrix(1, 3) || stats.getMatrix(1, 3) != stats.getMatrix(1, 5))
+                    && trilha[5] == true) trilha[5] = false;
+
+        if((stats.getMatrix(1, 5) != stats.getMatrix(3, 5) || stats.getMatrix(3, 5) != stats.getMatrix(5, 5))
+                    && trilha[6] == true) trilha[6] = false;
+
+        if((stats.getMatrix(5, 1) != stats.getMatrix(5, 3) || stats.getMatrix(5, 3) != stats.getMatrix(5, 5))
+                    && trilha[7] == true) trilha[7] = false;
+
+        if((stats.getMatrix(2, 2) != stats.getMatrix(3, 2) || stats.getMatrix(3, 2) != stats.getMatrix(4, 2))
+                    && trilha[8] == true) trilha[8] = false;
+
+        if((stats.getMatrix(2, 2) != stats.getMatrix(2, 3) || stats.getMatrix(2, 3) != stats.getMatrix(2, 4))
+                    && trilha[9] == true) trilha[9] = false;
+
+        if((stats.getMatrix(2, 4) != stats.getMatrix(3, 4) || stats.getMatrix(3, 4) != stats.getMatrix(4, 4))
+                    && trilha[1] == true) trilha[10] = false;
+
+        if((stats.getMatrix(4, 2) != stats.getMatrix(4, 3) || stats.getMatrix(4, 3) != stats.getMatrix(4, 4))
+                    && trilha[11] == true) trilha[11] = false;
+
+        if((stats.getMatrix(3, 0) != stats.getMatrix(3, 1) || stats.getMatrix(3, 1) != stats.getMatrix(3, 2))
+                    && trilha[12] == true) trilha[12] = false;
+
+        if((stats.getMatrix(0, 3) != stats.getMatrix(1, 3) || stats.getMatrix(1, 3) != stats.getMatrix(2, 3))
+                    && trilha[13] == true) trilha[13] = false;
+
+        if((stats.getMatrix(3, 4) != stats.getMatrix(3, 5) || stats.getMatrix(3, 5) != stats.getMatrix(3, 6))
+                    && trilha[14] == true) trilha[14] = false;
+
+        if((stats.getMatrix(4, 3) != stats.getMatrix(5, 3) || stats.getMatrix(5, 3) != stats.getMatrix(6, 3))
+                    && trilha[15] == true) trilha[15] = false;
+
     }
 
     public void removePedra(){
@@ -451,12 +497,12 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 } else if(stats.getMatrix(i, j) == 1) check[i][j].setEnabled(true);
             }
         }
-        
-        fase = 4; 
+
+        fase = 4;
     }
 
     public void setRadioAfterRemove(){
-        
+
         for(int i = 0; i<7; i++){
             for(int j = 0; j<7; j++){
                 if(stats.getMatrix(i, j) == 0){
@@ -465,12 +511,12 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     } catch (NullPointerException ex) {
                         //tratamento do erro
                     }
-                            
+
                 }
             }
         }
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch(fase){
@@ -577,9 +623,9 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     stats.setMatrix(6, 6);
                     check[6][6].setEnabled(false);
                 }
-                
+
                 resetTrilha();
-               
+
                 if(isTrilha()){
                     removePedra();
                     break;
@@ -747,7 +793,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     if(stats.getMatrix(3, 6) == 0) check[3][6].setEnabled(true);
                     if(stats.getMatrix(6, 3) == 0) check[6][3].setEnabled(true);
                 }
-                
+
                 fase = 3;
                 break;
 
@@ -853,10 +899,10 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     stats.setMatrix(6, 6);
                     check[6][6].setEnabled(false);
                 }
-                
+
                 resetTrilha();
-                System.out.println(trilha[0]+"###################################");
-               
+                System.out.println(trilha[9]+"###################################");
+
                 if(isTrilha()){
                     removePedra();
                     break;
@@ -953,9 +999,13 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 if(e.getSource() == check[6][6]){
                     stats.resetMatrix(6, 6);
                 }
-                
+
                 if(stats.getPieces() >= 6){
-                    stats.setPlayer1(true);
+                    if(fase == 1) stats.setPlayer1(true);
+                    else {
+                        if(stats.getPlayer1()) stats.setPlayer1(false);
+                        else stats.setPlayer1(true);
+                    }
                     fase = 2;
                     blockRadioButton();
                     for(int i = 0; i<7; i++){

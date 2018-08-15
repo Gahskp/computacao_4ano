@@ -50,7 +50,7 @@ public class Stats {
     public void getMatrix(){
         for(int i=0;i<7;i++){
             for(int j=0; j<7; j++){
-                System.out.print(i + " " + j + "     ");
+                System.out.print(matrix[i][j] + "     ");
             }
             System.out.println(" ");
         }
