@@ -34,6 +34,10 @@ public class Stats {
             matrix[i][j] = -1;
         }
     }
+    
+    public void resetMatrix(int i, int j){
+        matrix[i][j] = 0;
+    }
 
     public void setPlayer1(boolean s){
         player1 = s;
