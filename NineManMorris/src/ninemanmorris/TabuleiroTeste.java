@@ -447,7 +447,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     && trilha[2] == true) trilha[2] = false;
 
         if((stats.getMatrix(6, 0) != stats.getMatrix(6, 3) || stats.getMatrix(6, 3) != stats.getMatrix(6, 6))
-                    && trilha[3] == false) trilha[3] = false;
+                    && trilha[3] == true) trilha[3] = false;
 
         if((stats.getMatrix(1, 1) != stats.getMatrix(3, 1) || stats.getMatrix(3, 1) != stats.getMatrix(5, 1))
                     && trilha[4] == true) trilha[4] = false;
@@ -901,7 +901,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 }
 
                 resetTrilha();
-                System.out.println(trilha[9]+"###################################");
+                System.out.println(trilha[3]+"###################################");
 
                 if(isTrilha()){
                     removePedra();
