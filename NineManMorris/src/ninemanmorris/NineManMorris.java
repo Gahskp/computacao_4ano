@@ -19,22 +19,12 @@ public class NineManMorris extends Thread {
     public static void main(String[] args) {
         // TODO code application logic here
         
-        
-//        testeThread th = new testeThread();
-//        Thread teste = new Thread(th);
-//        teste.start();
-        
         TabuleiroTeste tabuleiro = new TabuleiroTeste();
         tabuleiro.addButtons();
         tabuleiro.addListener();
         
         Thread threadTabuleiro = new Thread(tabuleiro);
         threadTabuleiro.start();
-//        while(true) {
-//            if(threadTabuleiro.isInterrupted()){
-//                System.out.println("Marcar como trilha já encontrada e esperar a remoção de uma peça do adversário");
-//            }
-//        }
         
     }
     

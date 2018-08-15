@@ -32,9 +32,8 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
     Stats stats = new Stats();
 
-    int fase = 1;
-    boolean escolhe = false;
-    boolean move = true;
+    public int fase = 1;
+    public boolean trilha [] = new boolean[16];
 
     public TabuleiroTeste()
     {
@@ -68,6 +67,8 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
         check[0][6] = new JRadioButton();
         check[3][6] = new JRadioButton();
         check[6][6] = new JRadioButton();
+
+        for(int i = 0; i<16; i++) trilha[i] = false;
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
@@ -335,36 +336,70 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
         g2.draw(lin);
     }
 
-//    public void threadIsTrilha(){
-//        new Thread(){
-//            @Override
-//            public void run(){
-//                if(stats.isTrilha()){
-//                    System.out.println("TRILHA");
-//                }
-//            }
-//        }.start();
-//    }
     @Override
     public void run(){
 //        while(true){
-//            if(stats.isTrilha()){
+//
+//            if(stats.getMatrix(0, 0) == stats.getMatrix(3, 0) && stats.getMatrix(3, 0) == stats.getMatrix(6, 0)
+//                    && stats.getMatrix(3, 0) != 0 && trilha[0] == false){
 //                try {
+//                    removePedra(0);
 //                    Thread.sleep(10000);
 //                } catch (InterruptedException ex) {
-//                    System.out.println("Thread.sleep ERROR");;
+//                    Logger.getLogger(TabuleiroTeste.class.getName()).log(Level.SEVERE, null, ex);
 //                }
 //            }
 //        }
     }
 
+    public boolean isTrilha(){
+        if(stats.getMatrix(0, 0) == stats.getMatrix(3, 0) && stats.getMatrix(3, 0) == stats.getMatrix(6, 0)
+                    && stats.getMatrix(3, 0) != 0 && trilha[0] == false){
+            trilha[0] = true;
+            return true;
+        }
+        return false;
+    }
+
+    public void removePedra(){
+        System.out.println("removendo uma pedra");
+        blockRadioButton();
+        for(int i = 0; i<7; i++){
+            for(int j = 0; j<7; j++){
+                if(stats.getPlayer1()){
+                    if(stats.getMatrix(i, j) == -1) check[i][j].setEnabled(true);
+                } else if(stats.getMatrix(i, j) == 1) check[i][j].setEnabled(true);
+            }
+        }
+        
+        fase = 4;
+    }
+
+    public void setRadioAfterRemove(){
+        
+        for(int i = 0; i<7; i++){
+            for(int j = 0; j<7; j++){
+                if(stats.getMatrix(i, j) == 0){
+                    try {
+                        check[i][j].setEnabled(true);
+                    } catch (NullPointerException ex) {
+                        //tratamento do erro
+                    }
+                            
+                }
+            }
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         switch(fase){
+
             /*************************************************/
             /* Fase 1 do jogo: colocar as peças no tabuleiro */
             /*************************************************/
             case 1:
+
                 System.out.println("estamos na fase 1");
                 if(e.getSource() == check[0][0]){
                     stats.setMatrix(0, 0);
@@ -462,12 +497,16 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     stats.setMatrix(6, 6);
                     check[6][6].setEnabled(false);
                 }
-                
+               
+                if(isTrilha()){
+                    removePedra();
+                }
+
                 /* If com o objetivo de controlar a vez dos jogadores */
                 if(stats.getPlayer1()) stats.setPlayer1(false);
                 else stats.setPlayer1(true);
-                
-                
+
+
                 if(stats.getPieces() >= 6){
                     stats.setPlayer1(true);
                     fase = 2;
@@ -481,10 +520,12 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     }
                 }
                 break;
+
+            /**********************************/
+            /* Fase 2 do jogo: escolher a peça a ser movida */
+            /**********************************/
             case 2:
-                /**********************************/
-                /* Fase 2 do jogo: mover as peças */
-                /**********************************/
+
                 System.out.println("estamos na fase 2");
                 if(e.getSource() == check[0][0]){
                     stats.resetMatrix(0, 0);
@@ -625,8 +666,12 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 }
                 fase = 3;
                 break;
+
+            /**********************************/
+            /* Fase 3 do jogo: mover as peças */
+            /**********************************/
             case 3:
-                
+
                 System.out.println("estamos na fase 3");
                 if(e.getSource() == check[0][0]){
                     stats.setMatrix(0, 0);
@@ -724,13 +769,13 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     stats.setMatrix(6, 6);
                     check[6][6].setEnabled(false);
                 }
-                
+
                 if(stats.getPlayer1()) stats.setPlayer1(false);
                 else stats.setPlayer1(true);
-                
+
                 fase = 2;
                 blockRadioButton();
-                
+
                 for(int i = 0; i<7; i++){
                     for(int j = 0; j<7; j++){
                         if(stats.getPlayer1()){
@@ -738,11 +783,105 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                         } else if(stats.getMatrix(i, j) == -1) check[i][j].setEnabled(true);
                     }
                 }
-                
+
                 break;
+
+            case 4:
+
+                System.out.println("Estamos na fase 4");
+                if(e.getSource() == check[0][0]){
+                    stats.resetMatrix(0, 0);
+                }
+                if(e.getSource() == check[3][0]){
+                    stats.resetMatrix(3, 0);
+                }
+                if(e.getSource() == check[6][0]){
+                    stats.resetMatrix(6, 0);
+                }
+                if(e.getSource() == check[1][1]){
+                    stats.resetMatrix(1, 1);
+                }
+                if(e.getSource() == check[3][1]){
+                    stats.resetMatrix(3, 1);
+                }
+                if(e.getSource() == check[5][1]){
+                    stats.resetMatrix(5, 1);
+                }
+                if(e.getSource() == check[2][2]){
+                    stats.resetMatrix(2, 2);
+                }
+                if(e.getSource() == check[3][2]){
+                    stats.resetMatrix(3, 2);
+                }
+                if(e.getSource() == check[4][2]){
+                    stats.resetMatrix(4, 2);
+                }
+                if(e.getSource() == check[0][3]){
+                    stats.resetMatrix(0, 3);
+                }
+                if(e.getSource() == check[1][3]){
+                    stats.resetMatrix(1, 3);
+                }
+                if(e.getSource() == check[2][3]){
+                    stats.resetMatrix(2, 3);
+                }
+                if(e.getSource() == check[4][3]){
+                    stats.resetMatrix(4, 3);
+                }
+                if(e.getSource() == check[5][3]){
+                    stats.resetMatrix(5, 3);
+                }
+                if(e.getSource() == check[6][3]){
+                    stats.resetMatrix(6, 3);
+                }
+                if(e.getSource() == check[2][4]){
+                    stats.resetMatrix(2, 4);
+                }
+                if(e.getSource() == check[3][4]){
+                    stats.resetMatrix(3, 4);
+                }
+                if(e.getSource() == check[4][4]){
+                    stats.resetMatrix(4, 4);
+                }
+                if(e.getSource() == check[1][5]){
+                    stats.resetMatrix(1, 5);
+                }
+                if(e.getSource() == check[3][5]){
+                    stats.resetMatrix(3, 5);
+                }
+                if(e.getSource() == check[5][5]){
+                    stats.resetMatrix(5, 5);
+                }
+                if(e.getSource() == check[0][6]){
+                    stats.resetMatrix(0, 6);
+                }
+                if(e.getSource() == check[3][6]){
+                    stats.resetMatrix(3, 6);
+                }
+                if(e.getSource() == check[6][6]){
+                    stats.resetMatrix(6, 6);
+                }
+                
+                if(stats.getPieces() >= 6){
+                    stats.setPlayer1(true);
+                    fase = 2;
+                    blockRadioButton();
+                    for(int i = 0; i<7; i++){
+                        for(int j = 0; j<7; j++){
+                            if(stats.getPlayer1()){
+                                if(stats.getMatrix(i, j) == 1) check[i][j].setEnabled(true);
+                            } else if(stats.getMatrix(i, j) == -1) check[i][j].setEnabled(true);
+                        }
+                    }
+                } else {
+                    fase = 1;
+                    blockRadioButton();
+                    setRadioAfterRemove();
+                }
+
             default:
         }
-        
+
         /* Retorna a Matriz de posições */
         stats.getMatrix();
 
