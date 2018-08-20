@@ -2,7 +2,7 @@ import socket, ssl
 import sys
 import select
 
-HOST, PORT = 'localhost', 473
+HOST, PORT = 'localhost', 443
 
 def handle(conn):
     conn.write(b'GET / HTTP/1.1\n\r')
@@ -16,9 +16,13 @@ def main():
         conn.connect((HOST, PORT))
         # handle(conn)
         while True:
-            if select.select([sys.stdin,],[],[],0.0)[0]:
-                for line in sys.stdin:
-                    print line,
+            while sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
+                line = sys.stdin.readline()
+                if line:
+                    print 'Ok'
+                    conn.write(b'%s' % (line))
+                else:
+                    print 'eof'
 
             # if stdin
             # text = sys.stdin.readline()

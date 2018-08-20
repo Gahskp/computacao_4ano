@@ -1,7 +1,7 @@
 import socket, ssl
 
 # HOST, PORT, CERT = 'example.com', 443, '/path/to/example.com.pem'
-HOST, PORT, CERT = 'localhost', 473, './server.pem'
+HOST, PORT, CERT = 'localhost', 443, './server.pem'
 
 def handle(conn):
     print(conn.recv())
