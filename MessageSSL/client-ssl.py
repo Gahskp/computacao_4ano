@@ -1,10 +1,11 @@
 import socket, ssl
+import sys
+import select
 
-HOST, PORT = 'localhost', 4443
+HOST, PORT = 'localhost', 473
 
 def handle(conn):
     conn.write(b'GET / HTTP/1.1\n\r')
-    conn.write(b'Host: www.google.com\n\r\n\r')
     print(conn.recv().decode())
 
 def main():
@@ -13,10 +14,15 @@ def main():
 
     try:
         conn.connect((HOST, PORT))
-        handle(conn)
+        # handle(conn)
         while True:
-            text = raw_input()
-            print '%s' % (text)
+            if select.select([sys.stdin,],[],[],0.0)[0]:
+                for line in sys.stdin:
+                    print line,
+
+            # if stdin
+            # text = sys.stdin.readline()
+            # conn.write(b'%s' % (text))
     finally:
         conn.close()
 

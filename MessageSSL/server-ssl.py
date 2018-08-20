@@ -1,7 +1,7 @@
 import socket, ssl
 
 # HOST, PORT, CERT = 'example.com', 443, '/path/to/example.com.pem'
-HOST, PORT, CERT = 'localhost', 4443, './server.pem'
+HOST, PORT, CERT = 'localhost', 473, './server.pem'
 
 def handle(conn):
     print(conn.recv())
@@ -19,7 +19,10 @@ def main():
         ssock, addr = sock.accept()
         try:
             conn = context.wrap_socket(ssock, server_side=True)
-            handle(conn)
+            # handle(conn)
+            while True:
+                print(conn.recv())
+
         except ssl.SSLError as e:
             print(e)
         finally:
