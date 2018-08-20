@@ -12,11 +12,13 @@ def main():
     conn = ssl.wrap_socket(sock, cert_reqs=ssl.CERT_REQUIRED, ca_certs='./cert.pem')
 
     try:
-        conn.connect((HOST, PORT))       
+        conn.connect((HOST, PORT))
         handle(conn)
+        while True:
+            text = raw_input()
+            print '%s' % (text)
     finally:
         conn.close()
-        
+
 if __name__ == '__main__':
     main()
-            
