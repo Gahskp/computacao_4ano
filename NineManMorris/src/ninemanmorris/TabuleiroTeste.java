@@ -34,6 +34,8 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
     public int fase = 1;
     public boolean trilha [] = new boolean[16];
+    
+    public final int numeroPecas = 18;
 
     public TabuleiroTeste()
     {
@@ -635,8 +637,8 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 if(stats.getPlayer1()) stats.setPlayer1(false);
                 else stats.setPlayer1(true);
 
-
-                if(stats.getPieces() >= 6){
+                /* Número de peças */
+                if(stats.getPieces() >= numeroPecas){
                     stats.setPlayer1(true);
                     fase = 2;
                     blockRadioButton();
@@ -656,26 +658,31 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
             case 2:
 
                 System.out.println("estamos na fase 2");
+                blockRadioButton();
                 if(e.getSource() == check[0][0]){
                     stats.resetMatrix(0, 0);
                     if(stats.getMatrix(0, 3) == 0) check[0][3].setEnabled(true);
                     if(stats.getMatrix(3, 0) == 0) check[3][0].setEnabled(true);
+                    check[0][0].setEnabled(true);
                 }
                 if(e.getSource() == check[3][0]){
                     stats.resetMatrix(3, 0);
                     if(stats.getMatrix(0, 0) == 0) check[0][0].setEnabled(true);
                     if(stats.getMatrix(6, 0) == 0) check[6][0].setEnabled(true);
                     if(stats.getMatrix(3, 1) == 0) check[3][1].setEnabled(true);
+                    check[3][0].setEnabled(true);
                 }
                 if(e.getSource() == check[6][0]){
                     stats.resetMatrix(6, 0);
                     if(stats.getMatrix(3, 0) == 0) check[3][0].setEnabled(true);
                     if(stats.getMatrix(6, 3) == 0) check[6][3].setEnabled(true);
+                    check[6][0].setEnabled(true);
                 }
                 if(e.getSource() == check[1][1]){
                     stats.resetMatrix(1, 1);
                     if(stats.getMatrix(3, 1) == 0) check[3][1].setEnabled(true);
                     if(stats.getMatrix(1, 3) == 0) check[1][3].setEnabled(true);
+                    check[1][1].setEnabled(true);
                 }
                 if(e.getSource() == check[3][1]){
                     stats.resetMatrix(3, 1);
@@ -683,33 +690,39 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     if(stats.getMatrix(5, 1) == 0) check[5][1].setEnabled(true);
                     if(stats.getMatrix(3, 0) == 0) check[3][0].setEnabled(true);
                     if(stats.getMatrix(3, 2) == 0) check[3][2].setEnabled(true);
+                    check[3][1].setEnabled(true);
                 }
                 if(e.getSource() == check[5][1]){
                     stats.resetMatrix(5, 1);
                     if(stats.getMatrix(5, 3) == 0) check[5][3].setEnabled(true);
                     if(stats.getMatrix(3, 1) == 0) check[3][1].setEnabled(true);
+                    check[5][1].setEnabled(true);
                 }
                 if(e.getSource() == check[2][2]){
                     stats.resetMatrix(2, 2);
                     if(stats.getMatrix(3, 2) == 0) check[3][2].setEnabled(true);
                     if(stats.getMatrix(2, 3) == 0) check[2][3].setEnabled(true);
+                    check[2][2].setEnabled(true);
                 }
                 if(e.getSource() == check[3][2]){
                     stats.resetMatrix(3, 2);
                     if(stats.getMatrix(3, 1) == 0) check[3][1].setEnabled(true);
                     if(stats.getMatrix(2, 2) == 0) check[2][2].setEnabled(true);
                     if(stats.getMatrix(4, 2) == 0) check[4][2].setEnabled(true);
+                    check[3][2].setEnabled(true);
                 }
                 if(e.getSource() == check[4][2]){
                     stats.resetMatrix(4, 2);
                     if(stats.getMatrix(3, 2) == 0) check[3][2].setEnabled(true);
                     if(stats.getMatrix(4, 3) == 0) check[4][3].setEnabled(true);
+                    check[4][2].setEnabled(true);
                 }
                 if(e.getSource() == check[0][3]){
                     stats.resetMatrix(0, 3);
                     if(stats.getMatrix(0, 0) == 0) check[0][0].setEnabled(true);
                     if(stats.getMatrix(0, 6) == 0) check[0][6].setEnabled(true);
                     if(stats.getMatrix(1, 3) == 0) check[1][3].setEnabled(true);
+                    check[0][3].setEnabled(true);
                 }
                 if(e.getSource() == check[1][3]){
                     stats.resetMatrix(1, 3);
@@ -717,18 +730,21 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     if(stats.getMatrix(2, 3) == 0) check[2][3].setEnabled(true);
                     if(stats.getMatrix(1, 1) == 0) check[1][1].setEnabled(true);
                     if(stats.getMatrix(1, 5) == 0) check[1][5].setEnabled(true);
+                    check[1][3].setEnabled(true);
                 }
                 if(e.getSource() == check[2][3]){
                     stats.resetMatrix(2, 3);
                     if(stats.getMatrix(2, 4) == 0) check[2][4].setEnabled(true);
                     if(stats.getMatrix(2, 2) == 0) check[2][2].setEnabled(true);
                     if(stats.getMatrix(1, 3) == 0) check[1][3].setEnabled(true);
+                    check[2][3].setEnabled(true);
                 }
                 if(e.getSource() == check[4][3]){
                     stats.resetMatrix(4, 3);
                     if(stats.getMatrix(4, 2) == 0) check[4][2].setEnabled(true);
                     if(stats.getMatrix(5, 3) == 0) check[5][3].setEnabled(true);
                     if(stats.getMatrix(4, 4) == 0) check[4][4].setEnabled(true);
+                    check[4][3].setEnabled(true);
 
                 }
                 if(e.getSource() == check[5][3]){
@@ -737,33 +753,39 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     if(stats.getMatrix(5, 1) == 0) check[5][1].setEnabled(true);
                     if(stats.getMatrix(5, 5) == 0) check[5][5].setEnabled(true);
                     if(stats.getMatrix(6, 3) == 0) check[6][3].setEnabled(true);
+                    check[5][3].setEnabled(true);
                 }
                 if(e.getSource() == check[6][3]){
                     stats.resetMatrix(6, 3);
                     if(stats.getMatrix(6, 0) == 0) check[6][0].setEnabled(true);
                     if(stats.getMatrix(6, 6) == 0) check[6][6].setEnabled(true);
                     if(stats.getMatrix(5, 3) == 0) check[5][3].setEnabled(true);
+                    check[6][3].setEnabled(true);
                 }
                 if(e.getSource() == check[2][4]){
                     stats.resetMatrix(2, 4);
                     if(stats.getMatrix(3, 4) == 0) check[3][4].setEnabled(true);
                     if(stats.getMatrix(2, 3) == 0) check[2][3].setEnabled(true);
+                    check[2][4].setEnabled(true);
                 }
                 if(e.getSource() == check[3][4]){
                     stats.resetMatrix(3, 4);
                     if(stats.getMatrix(2, 4) == 0) check[2][4].setEnabled(true);
                     if(stats.getMatrix(4, 4) == 0) check[4][4].setEnabled(true);
                     if(stats.getMatrix(3, 5) == 0) check[3][5].setEnabled(true);
+                    check[3][4].setEnabled(true);
                 }
                 if(e.getSource() == check[4][4]){
                     stats.resetMatrix(4, 4);
                     if(stats.getMatrix(3, 4) == 0) check[3][4].setEnabled(true);
                     if(stats.getMatrix(4, 3) == 0) check[4][3].setEnabled(true);
+                    check[4][4].setEnabled(true);
                 }
                 if(e.getSource() == check[1][5]){
                     stats.resetMatrix(1, 5);
                     if(stats.getMatrix(1, 3) == 0) check[1][3].setEnabled(true);
                     if(stats.getMatrix(3, 5) == 0) check[3][5].setEnabled(true);
+                    check[1][5].setEnabled(true);
                 }
                 if(e.getSource() == check[3][5]){
                     stats.resetMatrix(3, 5);
@@ -771,27 +793,32 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                     if(stats.getMatrix(5, 5) == 0) check[5][5].setEnabled(true);
                     if(stats.getMatrix(3, 4) == 0) check[3][4].setEnabled(true);
                     if(stats.getMatrix(3, 6) == 0) check[3][6].setEnabled(true);
+                    check[3][5].setEnabled(true);
                 }
                 if(e.getSource() == check[5][5]){
                     stats.resetMatrix(5, 5);
                     if(stats.getMatrix(5, 3) == 0) check[5][3].setEnabled(true);
                     if(stats.getMatrix(3, 5) == 0) check[3][5].setEnabled(true);
+                    check[5][5].setEnabled(true);
                 }
                 if(e.getSource() == check[0][6]){
                     stats.resetMatrix(0, 6);
                     if(stats.getMatrix(0, 3) == 0) check[0][3].setEnabled(true);
                     if(stats.getMatrix(3, 6) == 0) check[3][6].setEnabled(true);
+                    check[0][6].setEnabled(true);
                 }
                 if(e.getSource() == check[3][6]){
                     stats.resetMatrix(3, 6);
                     if(stats.getMatrix(0, 6) == 0) check[0][6].setEnabled(true);
                     if(stats.getMatrix(3, 5) == 0) check[3][5].setEnabled(true);
                     if(stats.getMatrix(6, 6) == 0) check[6][6].setEnabled(true);
+                    check[3][6].setEnabled(true);
                 }
                 if(e.getSource() == check[6][6]){
                     stats.resetMatrix(6, 6);
                     if(stats.getMatrix(3, 6) == 0) check[3][6].setEnabled(true);
                     if(stats.getMatrix(6, 3) == 0) check[6][3].setEnabled(true);
+                    check[6][6].setEnabled(true);
                 }
 
                 fase = 3;
@@ -998,8 +1025,9 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 if(e.getSource() == check[6][6]){
                     stats.resetMatrix(6, 6);
                 }
-
-                if(stats.getPieces() >= 6){
+                
+                /* Número de peças */
+                if(stats.getPieces() >= numeroPecas){
                     if(fase == 1) stats.setPlayer1(true);
                     else {
                         if(stats.getPlayer1()) stats.setPlayer1(false);
