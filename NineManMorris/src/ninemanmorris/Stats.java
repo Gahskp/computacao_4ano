@@ -9,7 +9,7 @@ package ninemanmorris;
  *
  * @author oliver
  */
-public class Stats {
+public class Stats implements Cloneable{
     private boolean player1;
     int[][] matrix = new int[7][7];
     private int pieces = 0;

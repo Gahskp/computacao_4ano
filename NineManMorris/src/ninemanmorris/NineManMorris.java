@@ -11,7 +11,7 @@ import java.lang.Thread;
  *
  * @author oliver
  */
-public class NineManMorris extends Thread {
+public class NineManMorris extends Thread implements Game{
 
     /**
      * @param args the command line arguments
