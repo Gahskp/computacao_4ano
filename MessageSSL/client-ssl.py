@@ -1,11 +1,22 @@
 import socket, ssl
-import sys
-import select
+import threading
 
-HOST, PORT = 'localhost', 500
+HOST, PORT = 'localhost', 4441
+
+def send_conn_input(conn):
+    while True:
+        text = input()
+        conn.write(text.encode())
+
+def get_conn_input(conn):
+    while True:
+        text = conn.recv()
+        if text:
+            print("server << " + text.decode())
 
 def handle(conn):
     conn.write(b'GET / HTTP/1.1\n\r')
+    conn.write(b'Host: www.google.com\n\r\n\r')
     print(conn.recv().decode())
 
 def main():
@@ -15,12 +26,13 @@ def main():
     try:
         conn.connect((HOST, PORT))
         # handle(conn)
+        t = threading.Thread(name='send_input', args=(conn,), target=send_conn_input)
+        t.start()
+        t2 = threading.Thread(name='get_input', args=(conn,), target=get_conn_input)
+        t2.start()
         while True:
-            if conn == sock:
-                print(conn.recv())
-            else:
-                text = sys.stdin.readline()
-                conn.write(b'%s' % (text))
+            continue
+
     finally:
         conn.close()
 
