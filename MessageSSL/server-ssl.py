@@ -2,7 +2,7 @@ import socket, ssl
 import threading
 
 # HOST, PORT, CERT = 'example.com', 443, '/path/to/example.com.pem'
-HOST, PORT, CERT = 'localhost', 4441, './server.pem'
+HOST, PORT, CERT = 'localhost', 4443, './server.pem'
 
 def get_conn_input(conn):
     while True:

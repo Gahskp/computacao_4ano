@@ -1,7 +1,7 @@
 import socket, ssl
 import threading
 
-HOST, PORT = 'localhost', 4441
+HOST, PORT = 'localhost', 4443
 
 def send_conn_input(conn):
     while True:
