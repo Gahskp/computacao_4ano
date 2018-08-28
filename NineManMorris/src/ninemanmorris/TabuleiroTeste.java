@@ -34,7 +34,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
     public int fase = 1;
     public boolean trilha [] = new boolean[16];
-    
+
     public final int numeroPecas = 18;
 
     public TabuleiroTeste()
@@ -1025,7 +1025,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                 if(e.getSource() == check[6][6]){
                     stats.resetMatrix(6, 6);
                 }
-                
+
                 /* Número de peças */
                 if(stats.getPieces() >= numeroPecas){
                     if(fase == 1) stats.setPlayer1(true);
@@ -1052,7 +1052,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
 
             default:
         }
-        
+
         for(int i = 0; i<7; i++){
             for(int j = 0; j<7; j++){
                 if(stats.getMatrix(i, j) == -1) check[i][j].setBackground(Color.LIGHT_GRAY);
@@ -1064,7 +1064,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
                         //tratamento do erro
                     }
                 }
-               
+
             }
         }
         /* Retorna a Matriz de posições */

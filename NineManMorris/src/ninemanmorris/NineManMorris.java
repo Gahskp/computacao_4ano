@@ -5,27 +5,26 @@
  */
 package ninemanmorris;
 
-import java.lang.Thread;
+import java.util.ArrayList;
+
+import aima.core.search.adversarial.Game;
+import aima.core.search.adversarial.AlphaBeta;
+import aima.core.search.adversarial.GameState;
+import aima.core.util.XYLocation;
 
 /**
  *
  * @author oliver
  */
-public class NineManMorris extends Thread implements Game{
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        
-        TabuleiroTeste tabuleiro = new TabuleiroTeste();
-        tabuleiro.addButtons();
-        tabuleiro.addListener();
-        
-        Thread threadTabuleiro = new Thread(tabuleiro);
-        threadTabuleiro.start();
-        
+public class NineManMorris extends Game {
+    public NineManMorris() {
+        ArrayList<XYLocation> moves = new ArrayList<XYLocation>();
+        for (int i = 0; i < 7; i++){
+            for(int j = 0; j < 7; j++){
+                XYLocation loc = new XYLocation(i, j);
+                moves.add(loc);
+            }
+        }
     }
-    
+
 }
