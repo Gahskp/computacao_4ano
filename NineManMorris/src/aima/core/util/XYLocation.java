@@ -30,19 +30,19 @@ public class XYLocation {
 	}
 
 	public XYLocation west() {
-		return new XYLocation(xCoOrdinate - 1, yCoOrdinate);
-	}
-
-	public XYLocation east() {
-		return new XYLocation(xCoOrdinate + 1, yCoOrdinate);
-	}
-
-	public XYLocation north() {
 		return new XYLocation(xCoOrdinate, yCoOrdinate - 1);
 	}
 
-	public XYLocation south() {
+	public XYLocation east() {
 		return new XYLocation(xCoOrdinate, yCoOrdinate + 1);
+	}
+
+	public XYLocation north() {
+		return new XYLocation(xCoOrdinate - 1, yCoOrdinate);
+	}
+
+	public XYLocation south() {
+		return new XYLocation(xCoOrdinate - 1, yCoOrdinate);
 	}
 
 	public XYLocation right() {

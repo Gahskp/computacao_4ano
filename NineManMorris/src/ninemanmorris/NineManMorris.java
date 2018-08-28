@@ -25,6 +25,16 @@ public class NineManMorris extends Game {
                 moves.add(loc);
             }
         }
+        initialState.put("moves", moves);
+        initialState.put("player", "X");
+        initialState.put("utility", new Integer(0));
+        initialState.put("board", NineManMorrisBoard()); // Verificar
+        initialState.put("level", new Integer(0));
+        presentState = initialState;
+    }
+    
+    public NineManMorrisBoard getBoard(GameState state){
+        
     }
 
 }
