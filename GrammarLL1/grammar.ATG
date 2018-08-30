@@ -16,6 +16,8 @@ CHARACTERS
 
 TOKENS
   ident         = letter { letter | digit }.
+  number        = digit  { digit }.
+  string        = ""
 
 /*------ Palavras Reservadas ------*/
 
