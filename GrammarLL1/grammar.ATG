@@ -19,14 +19,20 @@ while       = "while".
 
 /*------ Operadores Lógicos------*/
 
-soma = "+".
-subtracao = "-".
+soma        = "+".
+subtracao   = "-".
 multiplicao = "*".
-divisao = "/".
-disjuncao = "|".
-atribuicao = ":=".
-maior = ">".
-maiorIgual = ">=".
-diferente = "!".
-menor = "<".
-menorIgual = "<=".
+divisao     = "/".
+disjuncao   = "|".
+atribuicao  = ":=".
+maior       = ">".
+maiorIgual  = ">=".
+diferente   = "!".
+menor       = "<".
+menorIgual  = "<=".
+igualdade   = "=".
+end         = ";".
+epar        = "(".
+dpar        = ")".
+virgula     = ",".
+doisPontos  = ":".
