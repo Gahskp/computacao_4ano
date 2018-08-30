@@ -17,7 +17,7 @@ record      = "record".
 return      = "return".
 while       = "while".
 
-/*------ Operadores ------*/
+/*------ Operadores Lógicos------*/
 
 soma = "+".
 subtracao = "-".
