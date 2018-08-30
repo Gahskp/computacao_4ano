@@ -1,0 +1,18 @@
+/*------ Palavras Reservadas ------*/
+
+and         = "and".
+array       = "array".
+associative = "associative".
+break       = "break".
+constant    = "constant".
+else        = "else".
+end         = "end".
+export      = "export".
+function    = "function".
+if          = "if".
+import      = "import".
+not         = "not".
+or          = "or".
+record      = "record".
+return      = "return".
+while       = "while".
