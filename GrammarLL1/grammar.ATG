@@ -16,3 +16,17 @@ or          = "or".
 record      = "record".
 return      = "return".
 while       = "while".
+
+/*------ Operadores ------*/
+
+soma = "+".
+subtracao = "-".
+multiplicao = "*".
+divisao = "/".
+disjuncao = "|".
+atribuicao = ":=".
+maior = ">".
+maiorIgual = ">=".
+diferente = "!".
+menor = "<".
+menorIgual = "<=".
