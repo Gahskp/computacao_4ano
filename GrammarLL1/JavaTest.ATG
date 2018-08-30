@@ -21,7 +21,7 @@ COMPILER CompilationUnit
 
   /* sets of modifiers that can be attached to certain program elements    *
    * e.g., "constants" marks all modifiers that may be used with constants */
-    final static int 
+    final static int
       none         = 0x0000,
       access       = _public | _protected | _private,    // 0x0007
       classes      = access | _abstract | _static | _final | _strictfp,    // 0x0c1f
@@ -32,11 +32,11 @@ COMPILER CompilationUnit
       constants    = _public | _static | _final, // 0x0019
       all          = 0x0dff;
   }
-  
+
   class Modifiers {
     private long cur = 0L;
   	private Parser parser;
-	
+
   	public Modifiers(Parser parser) {
   		this.parser = parser;
   	}
@@ -45,7 +45,7 @@ COMPILER CompilationUnit
       if ((cur & m) == 0) cur |= m;
       else error("repeated modifier");
     }
-    
+
     public void check(long allowed) {
       long wrong = cur & (allowed ^ Modifier.all);
       if (wrong != Modifier.none)
@@ -53,14 +53,14 @@ COMPILER CompilationUnit
       else
         checkAccess();
     }
-    
+
     private void checkAccess() {
       long access = cur & Modifier.access;
-      if (access != Modifier.none && access != Modifier._public && 
+      if (access != Modifier.none && access != Modifier._public &&
           access != Modifier._protected && access != Modifier._private)
           parser.error("illegal combination of modifiers: " + toString(access));
     }
-    
+
     private String toString(long m) {
       String s = "";
       if ((m & Modifier._public) != 0) s += "public ";
@@ -79,7 +79,7 @@ COMPILER CompilationUnit
   }
 
 /*-------------------- expression handling ----------------------------------*/
-  
+
   class ExprKind {
     static final int NONE     =  0;
     static final int CONDEXPR = 17;
@@ -107,28 +107,28 @@ COMPILER CompilationUnit
   class ExprInfo {
     private int kind = ExprKind.NONE;
 	  private Parser parser;
-	
+
   	public ExprInfo(Parser parser) {
   		this.parser = parser;
   	}
-    
+
     public int getKind() {
       return kind;
     }
-    
+
     public void setKind(int k) {
       kind = k;
     }
-    
+
     public void checkExprStat() {
-      if ( kind != ExprKind.APPLY &&  kind != ExprKind.NEWCLASS && 
+      if ( kind != ExprKind.APPLY &&  kind != ExprKind.NEWCLASS &&
            kind != ExprKind.ASSIGN && kind != ExprKind.PREINC &&
            kind != ExprKind.PREDEC && kind != ExprKind.POSTINC &&
            kind != ExprKind.POSTDEC)
         parser.error("not a statement" + " (" + kind + ")");
     }
   }
-  
+
 /*---------------------------- token sets -----------------------------------*/
 
 final static int maxTerminals = 160;  // set size
@@ -144,12 +144,12 @@ static BitSet or(BitSet s1, BitSet s2) {
   return s1;
 }
 
-static int[] typeKWarr = {_byte, _short, _char, _int, _long, _float, _double, 
+static int[] typeKWarr = {_byte, _short, _char, _int, _long, _float, _double,
                           _boolean};
 static int[] castFollowerArr = {_ident, _new, _super, _this, _void, _intLit,
                                 _floatLit, _charLit, _stringLit, _true, _false,
                                 _null, _lpar, _not, _tilde};
-static int[] prefixArr = {_inc, _dec, _not, _tilde, _plus, _minus};                                
+static int[] prefixArr = {_inc, _dec, _not, _tilde, _plus, _minus};
 
 static BitSet
   typeKW       = newSet(typeKWarr),
@@ -168,7 +168,7 @@ boolean isSimpleTypeCast () {
   // assert: la.kind == _lpar
   scanner.ResetPeek();
   Token pt1 = scanner.Peek();
-  
+
   if (typeKW.get(pt1.kind)) {
     Token pt = scanner.Peek();
     pt = skipDims(pt);
@@ -202,7 +202,7 @@ Token skipDims (Token pt) {
      pt = scanner.Peek();
     if (pt.kind != _rbrack) return null;
      pt = scanner.Peek();
-  } while (pt.kind == _lbrack);  
+  } while (pt.kind == _lbrack);
   return pt;
 }
 
@@ -211,7 +211,7 @@ Token skipDims (Token pt) {
  * !!! Proceeds from current peek position !!!               */
 Token rdQualident (Token pt) {
   String qualident = "";
-  
+
   if (pt.kind == _ident) {
     qualident = pt.val;
     pt = scanner.Peek();
@@ -237,7 +237,7 @@ Token peek(int n) {
  * Resolver routines to resolve LL(1) conflicts:                   *
  * These routines return a boolean value that indicates            *
  * whether the alternative at hand shall be choosen or not.        *
- * They are used in IF ( ... ) expressions.                        *       
+ * They are used in IF ( ... ) expressions.                        *
  *-----------------------------------------------------------------*/
 
 // ',' (no '}')
@@ -274,8 +274,8 @@ boolean emptyBracket() {
 boolean isLocalVarDecl(boolean finalIsSuccess) {
   Token pt = la;
   scanner.ResetPeek();
-  
-  if (la.kind == _final) 
+
+  if (la.kind == _final)
     if (finalIsSuccess) return true;
     else pt = scanner.Peek();
 
@@ -284,7 +284,7 @@ boolean isLocalVarDecl(boolean finalIsSuccess) {
     pt = scanner.Peek();
   else
     pt = rdQualident(pt);
-    
+
   if (pt != null) {
     pt = skipDims(pt);
     if (pt != null) {
@@ -320,7 +320,7 @@ CHARACTERS
 
   zero          = '0'.
   zeroToThree   = zero + "123" .
-  octalDigit    = zero + "1234567" . 
+  octalDigit    = zero + "1234567" .
   nonZeroDigit  = "123456789".
   digit         = '0' + nonZeroDigit .
   hexDigit      = digit + "ABCDEFabcdef" .
@@ -332,43 +332,43 @@ CHARACTERS
 TOKENS
   ident         = letter { letter | digit }.
   /*-------------------------------------------------------------------------*/
-  intLit = 
+  intLit =
   (  zero | nonZeroDigit { digit }
   | ( "0x" | "0X" ) hexDigit { hexDigit }
   | '0' octalDigit { octalDigit }
   ) [ "l" | "L" ].
   /*-------------------------------------------------------------------------*/
   floatLit =
-    "." digit {digit} 
-    [("e" | "E") ["+" | "-"] digit {digit}] 
+    "." digit {digit}
+    [("e" | "E") ["+" | "-"] digit {digit}]
     [ "F" | "f" | "D" | "d" ]
-  | digit {digit} 
-    ( "." {digit} 
-      [("e" | "E" ) ["+" | "-"] digit {digit} ] 
+  | digit {digit}
+    ( "." {digit}
+      [("e" | "E" ) ["+" | "-"] digit {digit} ]
       [ "F" | "f" | "D" | "d" ]
     | ("e" | "E") ["+" | "-"] digit {digit}
       [ "F" | "f" | "D" | "d" ]
     | "F" | "f" | "D" | "d"
-    ).  
+    ).
   /*-------------------------------------------------------------------------*/
-  charLit = 
+  charLit =
     "'" ( char
         | "\\" ( "b" | "t" | "n" | "f" | "r" | "\"" | "\'" | "\\"
                | "u" { "u" } hexDigit hexDigit hexDigit hexDigit
                | zeroToThree [ octalDigit ] [ octalDigit ]
                | octalDigit [ octalDigit ]
                )
-        ) 
+        )
     "'".
   /*-------------------------------------------------------------------------*/
-  stringLit = 
+  stringLit =
     "\"" { stringChar
          | "\\" ( "b" | "t" | "n" | "f" | "r" | "\"" | "\'" | "\\"
                 | "u" { "u" } hexDigit hexDigit hexDigit hexDigit
                 | zeroToThree [ octalDigit ] [ octalDigit ]
                 | octalDigit [ octalDigit ]
                 )
-         } 
+         }
     "\"".
 
   /*----- keyword names needed in LL(1) resolvers -----*/
@@ -391,7 +391,7 @@ TOKENS
   this    = "this".
   true    = "true".
   void    = "void".
-  
+
   /*----- operators and special characters needed in LL(1) resolvers --------------*/
 
   colon   = ":".
@@ -447,14 +447,14 @@ QualifiedImport
 /*---------------------------------------------------------------------------*/
 
 TypeDeclaration
-= ClassOrInterfaceDeclaration 
+= ClassOrInterfaceDeclaration
 | ";"
 .
 
 /*---------------------------------------------------------------------------*/
 
-ClassOrInterfaceDeclaration           (. Modifiers m = new Modifiers(this); .) 
-= { ClassModifier<m> } 
+ClassOrInterfaceDeclaration           (. Modifiers m = new Modifiers(this); .)
+= { ClassModifier<m> }
   ( ClassDeclaration<m>
   |  InterfaceDeclaration<m>
   )
@@ -559,7 +559,7 @@ VariableDeclaratorRest
 
 /*---------------------------------------------------------------------------*/
 
-VariableInitializer                 (. ExprInfo dummy = new ExprInfo(this); .) 
+VariableInitializer                 (. ExprInfo dummy = new ExprInfo(this); .)
 = ArrayInitializer
 | Expression<dummy>
 .
@@ -610,10 +610,10 @@ MethodOrFieldDecl<Modifiers m>
 /*---------------------------------------------------------------------------*/
 
 MethodOrFieldRest<Modifiers m>
-=                                              (. m.check(Modifier.fields);  .) 
+=                                              (. m.check(Modifier.fields);  .)
   VariableDeclaratorsRest ';'
 |                                              (. m.check(Modifier.methods); .)
-  MethodDeclaratorRest  
+  MethodDeclaratorRest
 .
 
 /*---------------------------------------------------------------------------*/
@@ -625,9 +625,9 @@ VariableDeclaratorsRest
 /*---------------------------------------------------------------------------*/
 
 ArrayInitializer
-= "{" [ VariableInitializer 
-        { IF (commaAndNoRBrace()) "," VariableInitializer }       
-      ] [ "," ] 
+= "{" [ VariableInitializer
+        { IF (commaAndNoRBrace()) "," VariableInitializer }
+      ] [ "," ]
   "}"
 .
 
@@ -676,7 +676,7 @@ InterfaceBody
 
 /*---------------------------------------------------------------------------*/
 
-InterfaceBodyDeclaration              (. Modifiers m = new Modifiers(this); .) 
+InterfaceBodyDeclaration              (. Modifiers m = new Modifiers(this); .)
 = ";"
 | { Modifier<m> } InterfaceMemberDecl<m>
 .
@@ -700,9 +700,9 @@ InterfaceMethodOrFieldDecl<Modifiers m>
 /*---------------------------------------------------------------------------*/
 
 InterfaceMethodOrFieldRest<Modifiers m>
-=                                          (. m.check(Modifier.constants);  .) 
+=                                          (. m.check(Modifier.constants);  .)
   ConstantDeclaratorsRest ";"
-|                                          (. m.check(Modifier.interfaces); .) 
+|                                          (. m.check(Modifier.interfaces); .)
   InterfaceMethodDeclaratorRest
 .
 
@@ -742,7 +742,7 @@ VoidInterfaceMethodDeclaratorRest
 
 /*---------------------------------------------------------------------------*/
 
-Statement                           (. ExprInfo dummy = new ExprInfo(this); .) 
+Statement                           (. ExprInfo dummy = new ExprInfo(this); .)
 = Block
 | "if" ParExpression Statement [ "else" Statement ]
 | "for" "(" [ ForInit ] ";" [ Expression<dummy> ] ";" [ ForUpdate ] ")" Statement
@@ -777,7 +777,7 @@ BlockStatement
 /*---------------------------------------------------------------------------*/
 
 LocalVariableDeclaration
-= [ "final" ] Type VariableDeclarators  
+= [ "final" ] Type VariableDeclarators
 .
 
 /*---------------------------------------------------------------------------*/
@@ -802,7 +802,7 @@ ForUpdate
 /*---------------------------------------------------------------------------*/
 
 StatementExpression                   (. ExprInfo info = new ExprInfo(this); .)
-= Expression<info>                    (. info.checkExprStat();               .) 
+= Expression<info>                    (. info.checkExprStat();               .)
 .
 
 /*---------------------------------------------------------------------------*/
@@ -848,23 +848,23 @@ SwitchLabel
  *---------------------------------------------------------------------------*/
 
 Expression<ExprInfo info>
-= Expression1<info> 
-  {                                    (. ExprInfo dummy = new ExprInfo(this); 
+= Expression1<info>
+  {                                    (. ExprInfo dummy = new ExprInfo(this);
                                           info.setKind(ExprKind.ASSIGN);    .)
-    AssignmentOperator Expression1<dummy> 
+    AssignmentOperator Expression1<dummy>
   }
 .
 
 /*---------------------------------------------------------------------------*/
 
 Expression1<ExprInfo info>
-= Expression2<info> [                   (. info.setKind(ExprKind.CONDEXPR); .) 
+= Expression2<info> [                   (. info.setKind(ExprKind.CONDEXPR); .)
   ConditionalExpr ]
 .
 
 /*---------------------------------------------------------------------------*/
 
-ConditionalExpr                      (. ExprInfo dummy = new ExprInfo(this); .) 
+ConditionalExpr                      (. ExprInfo dummy = new ExprInfo(this); .)
 = "?" Expression<dummy> ":" Expression1<dummy>
 .
 
@@ -876,9 +876,9 @@ Expression2<ExprInfo info>
 
 /*---------------------------------------------------------------------------*/
 
-Expression2Rest<ExprInfo info>      (. ExprInfo dummy = new ExprInfo(this); .) 
+Expression2Rest<ExprInfo info>      (. ExprInfo dummy = new ExprInfo(this); .)
 = Infixop Expression3<dummy> { Infixop Expression3<dummy> }
-                                    (. info.setKind(ExprKind.BINARY);       .) 
+                                    (. info.setKind(ExprKind.BINARY);       .)
 | "instanceof" Type                 (. info.setKind(ExprKind.TYPETEST);     .)
 .
 
@@ -918,7 +918,7 @@ ArgumentsOpt<ExprInfo info>
 
 /*---------------------------------------------------------------------------*/
 
-Arguments                           (. ExprInfo dummy = new ExprInfo(this); .) 
+Arguments                           (. ExprInfo dummy = new ExprInfo(this); .)
 = "(" [ Expression<dummy> { "," Expression<dummy> } ] ")"
 .
 
@@ -927,7 +927,7 @@ Arguments                           (. ExprInfo dummy = new ExprInfo(this); .)
 SuperSuffix<ExprInfo info>
 = Arguments                                (. info.setKind(ExprKind.APPLY); .)
 | '.' ident                                (. info.setKind(ExprKind.IDENT); .)
-  ArgumentsOpt<info>  
+  ArgumentsOpt<info>
 .
 
 /*---------------------------------------------------------------------------*/
@@ -945,7 +945,7 @@ Literal
 
 Creator<ExprInfo info>
 = BasicType ArrayCreatorRest            (. info.setKind(ExprKind.NEWARRAY); .)
-| Qualident 
+| Qualident
   ( ArrayCreatorRest                    (. info.setKind(ExprKind.NEWARRAY); .)
   | ClassCreatorRest                    (. info.setKind(ExprKind.NEWCLASS); .)
   )
@@ -953,11 +953,11 @@ Creator<ExprInfo info>
 
 /*---------------------------------------------------------------------------*/
 
-ArrayCreatorRest                    (. ExprInfo dummy = new ExprInfo(this); .) 
-= "[" 
+ArrayCreatorRest                    (. ExprInfo dummy = new ExprInfo(this); .)
+= "["
   ( "]" BracketsOpt ArrayInitializer
-  | Expression<dummy> "]" 
-    { IF (nonEmptyBracket()) "[" Expression<dummy> "]" } 
+  | Expression<dummy> "]"
+    { IF (nonEmptyBracket()) "[" Expression<dummy> "]" }
     { IF (emptyBracket()) "[" "]" }
   )
 .
@@ -978,7 +978,7 @@ IdentifierSuffix<ExprInfo info>
 
 /*---------------------------------------------------------------------------*/
 
-Selector<ExprInfo info>             (. ExprInfo dummy = new ExprInfo(this); .) 
+Selector<ExprInfo info>             (. ExprInfo dummy = new ExprInfo(this); .)
 = "." ( ident ArgumentsOpt<info>
       | "super" Arguments
       | "new" InnerCreator
@@ -994,7 +994,7 @@ InnerCreator
 
 /*---------------------------------------------------------------------------*/
 
-ParExpression                        (. ExprInfo dummy = new ExprInfo(this); .) 
+ParExpression                        (. ExprInfo dummy = new ExprInfo(this); .)
 = "(" Expression<dummy> ")"
 .
 
@@ -1054,7 +1054,7 @@ PrefixOp<ExprInfo info>
 
 PostfixOp<ExprInfo info>
 = "++"                                   (. info.setKind(ExprKind.POSTINC); .)
-| "--"                                   (. info.setKind(ExprKind.POSTDEC); .)  
+| "--"                                   (. info.setKind(ExprKind.POSTDEC); .)
 .
 
 /*---------------------------------------------------------------------------*/

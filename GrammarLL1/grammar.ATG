@@ -1,3 +1,22 @@
+import java.util.BitSet;
+
+COMPILER grammarLL1
+
+/*-------------------------------------------------------------------------*/
+
+CHARACTERS
+  tab           = '\u0009'. /*  9 = tabulator */
+  lf            = '\u000a'. /* 10 = line feed */
+
+  digit         = "0123456789".
+  letter        = 'A' .. 'Z' + 'a' .. 'z'.
+
+  char          = ANY - "'" - '\\' - cr - lf.
+  stringChar    = ANY - "\"" - '\\' - cr - lf.
+
+TOKENS
+  ident         = letter { letter | digit }.
+
 /*------ Palavras Reservadas ------*/
 
 and         = "and".
@@ -36,3 +55,5 @@ epar        = "(".
 dpar        = ")".
 virgula     = ",".
 doisPontos  = ":".
+
+END grammarLL1.

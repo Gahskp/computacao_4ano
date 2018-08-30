@@ -1,0 +1,39 @@
+COMPILER Taste
+
+(*-------------------------------------- imports and global declarations -----------------------------------------*)
+IMPORT TL (*table handler*), TC (*code generator*);
+
+CONST
+  plus = 0; minus = 1; times = 2; slash = 3; equ = 4; lss = 5; gtr = 6; (*operators*)
+  undef = 0; int = 1; bool = 2; (*types*)
+  vars = 0; procs = 1; (*object kinds*)
+  ADD = 0; SUB = 1; MUL = 2; DIVI = 3; EQU = 4; LSS = 5; GTR = 6; (*machine instructions*)
+  LOAD = 7; LIT = 8; STO = 9; CALL = 10; RET = 11; RES = 12;
+  JMP = 13; FJMP = 14; HALTc = 15; NEG = 16; READ = 17; WRITE = 18;
+
+TYPE
+  Name = ARRAY 32 OF CHAR;
+
+PROCEDURE Err(nr: INTEGER);
+BEGIN TasteS.Error(100 + nr, TasteS.pos) END Err;
+
+PROCEDURE StringToVal(s: ARRAY OF CHAR; VAR val: INTEGER);
+  VAR i: INTEGER;
+BEGIN
+  val:=0; i := 0;
+  WHILE s[i] # 0X DO val := 10 * val + ORD(s[i]) - ORD("0"); INC(i) END
+END StringToVal;
+
+(*------------------------------------------ scanner specification ---------------------------------------------------*)
+CHARACTERS
+  letter = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".
+  digit = "0123456789".
+  eol = CHR(13).
+  tab = CHR(9).
+
+TOKENS
+  ident = letter {letter | digit}.
+  number = digit {digit}.
+IGNORE eol + tab
+
+COMMENTS FROM "(*" TO "*)" NESTED
