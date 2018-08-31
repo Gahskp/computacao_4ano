@@ -1,5 +1,10 @@
 import java.util.BitSet;
 
+/* https://pt.wikipedia.org/wiki/Diretiva */
+/* https://stackoverflow.com/questions/1739175/whats-the-difference-between-a-parser-and-a-scanner */
+/* http://moodle.deinfo.uepg.br/mod/assign/view.php?id=1518 */
+/* http://www.inf.ufsc.br/~j.barreto/cca/arquitet/arq4.htm */
+
 COMPILER grammarLL1
 
 /*-------------------------------------------------------------------------*/
