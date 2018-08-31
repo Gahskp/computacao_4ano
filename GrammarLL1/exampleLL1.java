@@ -1,4 +1,4 @@
-static string input;
+static String input;
 
 static char NextChar()
 {
@@ -25,11 +25,11 @@ static void E()
 
 static void F()
 {
-  string rule;
+  String rule;
 
-  if(NextChar() == '+') rule = "+E"
-  else if(NextChar() == '*') rule ="*E"
-  else rule = "~"
+  if(NextChar() == '+') rule = "+E";
+  else if(NextChar() == '*') rule ="*E";
+  else rule = "~";
 
   Console.WriteLine("F -> " + rule);
   switch(rule)
@@ -42,7 +42,7 @@ static void F()
 
 static void T()
 {
-  string rule;
+  String rule;
 
   if(NextChar() == 'a') rule = "a";
   else if(NextChar() == 'b') rule = "b";
@@ -80,7 +80,7 @@ static bool Parse()
   return false;
 }
 
-static void Main(string[] args)
+static void Main(String[] args)
 {
   input = Console.ReadLine() + "$";
   Console.WriteLine(Parse() ? "String Accepted" : "String Rejected");
