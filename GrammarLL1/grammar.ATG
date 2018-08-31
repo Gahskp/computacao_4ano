@@ -11,13 +11,10 @@ CHARACTERS
   digit         = "0123456789".
   letter        = 'A' .. 'Z' + 'a' .. 'z'.
 
-  char          = ANY - "'" - '\\' - cr - lf.
-  stringChar    = ANY - "\"" - '\\' - cr - lf.
-
 TOKENS
   ident         = letter { letter | digit }.
   number        = digit  { digit }.
-  string        = ""
+  string        = "\"" { letter | digit | tab | lf } "\"".
 
 /*------ Palavras Reservadas ------*/
 
