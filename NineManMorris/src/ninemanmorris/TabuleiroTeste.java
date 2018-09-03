@@ -79,6 +79,7 @@ public class TabuleiroTeste extends JFrame implements ActionListener, Runnable{
     }
 
     public void addButtons(){
+        
         check[0][0].setBounds(LC1, LC1, W, H);
         check[3][0].setBounds(LC1, LC4, W, H);
         check[6][0].setBounds(LC1, LC7, W, H);

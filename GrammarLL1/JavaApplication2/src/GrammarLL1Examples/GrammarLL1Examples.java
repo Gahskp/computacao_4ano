@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication2;
+package GrammarLL1Examples;
 
 import java.io.Console;
 import java.util.Scanner;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  *
  * @author oliver
  */
-public class JavaApplication2 {
+public class GrammarLL1Examples {
     
     static String input;
 
@@ -51,7 +51,7 @@ public class JavaApplication2 {
         try {
             T();
         } catch (Exception ex) {
-            Logger.getLogger(JavaApplication2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GrammarLL1Examples.class.getName()).log(Level.SEVERE, null, ex);
         }
       F();
     }
