@@ -8,6 +8,8 @@ package javaapplication2;
 import java.io.Console;
 import java.util.Scanner;
 import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,26 +19,40 @@ public class JavaApplication2 {
     
     static String input;
 
-    static String NextChar()
+    static char NextChar()
     {
-      return input[0];
+      return input.charAt(0);
     }
 
     static void AdvancePointer()
     {
-      input = input.Substring(1);
+      input = input.substring(1, input.length());
     }
 
-    static void S()
+    static boolean begin(){
+        if(NextChar() != 'e') return false;
+        if(NextChar() != 'g') return false;
+        if(NextChar() != 'i') return false;
+        if(NextChar() != 'n') return false;
+        return true;
+    }
+    
+    static void P() throws Exception
     {
+        if(NextChar() == 'b' && begin());
+        else throw new Exception();
         System.out.println("S -> E");
-      E();
+        E();
     }
 
     static void E()
     {
       System.out.println("E -> TF");
-      T();
+        try {
+            T();
+        } catch (Exception ex) {
+            Logger.getLogger(JavaApplication2.class.getName()).log(Level.SEVERE, null, ex);
+        }
       F();
     }
 
@@ -45,7 +61,7 @@ public class JavaApplication2 {
       String rule;
 
       if(NextChar() == '+'){ 
-          rule = "+";
+          rule = "+E";
       }else if(NextChar() == '*') rule ="*E";
       else rule = "~";
 
@@ -86,8 +102,8 @@ public class JavaApplication2 {
     {
       try
       {
-        S();
-        if(NextChar() == 's')
+        P();
+        if(NextChar() == '$')
           return true;
       }
       catch(Exception e)
@@ -103,7 +119,7 @@ public class JavaApplication2 {
      */
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
-        input = s.next(".");
+        input = s.nextLine();
         System.out.println(Parse() ? "String Accepted" : "String Rejected");
     }
     
