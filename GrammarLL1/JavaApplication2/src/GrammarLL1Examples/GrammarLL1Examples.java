@@ -30,10 +30,38 @@ public class GrammarLL1Examples {
     }
 
     static boolean begin(){
+        AdvancePointer();
         if(NextChar() != 'e') return false;
+        AdvancePointer();
         if(NextChar() != 'g') return false;
+        AdvancePointer();
         if(NextChar() != 'i') return false;
+        AdvancePointer();
         if(NextChar() != 'n') return false;
+        return true;
+    }
+    
+    static boolean input(){
+        AdvancePointer();
+        if(NextChar() != 'n') return false;
+        AdvancePointer();
+        if(NextChar() != 'p') return false;
+        AdvancePointer();
+        if(NextChar() != 'u') return false;
+        AdvancePointer();
+        if(NextChar() != 't') return false;
+        return true;
+    }
+    
+    static boolean print(){
+        AdvancePointer();
+        if(NextChar() != 'r') return false;
+        AdvancePointer();
+        if(NextChar() != 'i') return false;
+        AdvancePointer();
+        if(NextChar() != 'n') return false;
+        AdvancePointer();
+        if(NextChar() != 't') return false;
         return true;
     }
     
@@ -41,19 +69,45 @@ public class GrammarLL1Examples {
     {
         if(NextChar() == 'b' && begin());
         else throw new Exception();
-        System.out.println("S -> E");
-        E();
+        System.out.println("P -> begin L end");
+        L();
+        //Verificar o estado final "end"
     }
 
-    static void E()
+    static void L()
     {
-      System.out.println("E -> TF");
+      System.out.println("L -> CL | vazio");
         try {
-            T();
+            C();
         } catch (Exception ex) {
             Logger.getLogger(GrammarLL1Examples.class.getName()).log(Level.SEVERE, null, ex);
         }
-      F();
+      L();
+    }
+    
+    static boolean id(){
+        AdvancePointer();
+        if(NextChar() == 'x') return true;
+        if(NextChar() == 'y') return true;
+        if(NextChar() == 'z') return true;
+        return false;
+    }
+    
+    static void C() throws Exception{
+        String rule;
+        
+        if(id()) rule = "id";
+        else AdvancePointer(); if(NextChar() == 'i' && input()) rule = "input";
+        else AdvancePointer(); if(NextChar() == 'p' && print()) rule = "print";
+        else rule = "~";
+        
+        switch(rule)
+        {
+            case "id": break;
+            case "input": break;
+            case "print": break;
+            case "~": break;
+        }
     }
 
     static void F()
