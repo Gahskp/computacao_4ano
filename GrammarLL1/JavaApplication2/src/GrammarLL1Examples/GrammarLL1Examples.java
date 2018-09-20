@@ -124,46 +124,81 @@ public class GrammarLL1Examples {
             case "~": break;
         }
     }
-
-    static void F()
+    
+    static void E() throws Exception
+    {
+      System.out.println("E -> TF");
+        try {
+            T();
+        } catch (Exception ex) {
+            Logger.getLogger(GrammarLL1Examples.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      F();
+    }
+    
+    static void R() throws Exception
     {
       String rule;
 
-      if(NextChar() == '+'){ 
-          rule = "+E";
-      }else if(NextChar() == '*') rule ="*E";
+      if(NextChar() == '+'){
+          rule = "+TR";
+      }else if(NextChar() == '-') {
+          rule ="-TR";
+      }
+      else rule = "~";
+
+      System.out.println("R -> " + rule);
+      switch(rule)
+      {
+        case "+TR": AdvancePointer(); T(); R(); break;
+        case "-TR": AdvancePointer(); T(); R(); break;
+        case "~": break;
+      }
+    }
+    
+    static void T() throws Exception
+    {
+        System.out.println("T -> F S");
+        F();
+        S();
+    }
+    
+    static void S() throws Exception
+    {
+      String rule;
+
+      if(NextChar() == '*'){
+          rule = "*FS";
+      }else if(NextChar() == '/') {
+          rule ="/FS";
+      }
       else rule = "~";
 
       System.out.println("F -> " + rule);
       switch(rule)
       {
-        case "+E": AdvancePointer(); E(); break;
-        case "*E": AdvancePointer(); E(); break;
+        case "*FS": AdvancePointer(); F(); S(); break;
+        case "/FS": AdvancePointer(); F(); S(); break;
         case "~": break;
       }
     }
 
-    static void T() throws Exception
+    static void F() throws Exception
     {
       String rule;
 
-      if(NextChar() == 'a') rule = "a";
-      else if(NextChar() == 'b') rule = "b";
-      else if(NextChar() == 'c') rule = "c";
-      else if(NextChar() == '(') rule = "(E)";
-      else throw new Exception();
-
-        System.out.println("T -> " + rule);
-      switch(rule)
-      {
-        case "a": AdvancePointer(); break;
-        case "b": AdvancePointer(); break;
-        case "c": AdvancePointer(); break;
-        case "(E)": AdvancePointer();
-          E();
-          if(NextChar() != ')') throw new Exception();
+      if(NextChar() == '('){
+          rule = "(E)";
+          System.out.println("F -> " + rule);
           AdvancePointer();
-          break;
+          E();
+          if(NextChar() != ')');
+          AdvancePointer();
+      }
+      else if((NextChar() == '0')||(NextChar() == '0')||(NextChar() == '0')||(NextChar() == '3')||(NextChar() == 'x')||(NextChar() == 'y')||(NextChar() == 'z')){
+          rule ="C";
+          System.out.println("F -> " + rule);
+          C();
       }
     }
 
