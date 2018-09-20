@@ -28,9 +28,14 @@ public class GrammarLL1Examples {
     {
       input = input.substring(1, input.length());
     }
+    
+    static boolean atribuicao(){
+        if(NextChar() != '=') return false;
+        AdvancePointer();        
+        return true;
+    }
 
     static boolean begin(){
-        AdvancePointer();
         if(NextChar() != 'e') return false;
         AdvancePointer();
         if(NextChar() != 'g') return false;
@@ -42,7 +47,6 @@ public class GrammarLL1Examples {
     }
     
     static boolean input(){
-        AdvancePointer();
         if(NextChar() != 'n') return false;
         AdvancePointer();
         if(NextChar() != 'p') return false;
@@ -54,7 +58,6 @@ public class GrammarLL1Examples {
     }
     
     static boolean print(){
-        AdvancePointer();
         if(NextChar() != 'r') return false;
         AdvancePointer();
         if(NextChar() != 'i') return false;
@@ -62,8 +65,26 @@ public class GrammarLL1Examples {
         if(NextChar() != 'n') return false;
         AdvancePointer();
         if(NextChar() != 't') return false;
+        AdvancePointer();        
         return true;
     }
+    
+    static boolean end(){
+        if(NextChar() != 'n') return false;
+        AdvancePointer();
+        if(NextChar() != 'd') return false;
+        AdvancePointer();
+        return true;
+    }
+    
+    static boolean id(){
+        AdvancePointer();
+        if(NextChar() == 'x') return true;
+        if(NextChar() == 'y') return true;
+        if(NextChar() == 'z') return true;
+        return false;
+    }
+
     
     static void P() throws Exception
     {
@@ -73,6 +94,8 @@ public class GrammarLL1Examples {
         L();
         //Verificar o estado final "end"
     }
+    
+    
 
     static void L()
     {
@@ -83,14 +106,6 @@ public class GrammarLL1Examples {
             Logger.getLogger(GrammarLL1Examples.class.getName()).log(Level.SEVERE, null, ex);
         }
       L();
-    }
-    
-    static boolean id(){
-        AdvancePointer();
-        if(NextChar() == 'x') return true;
-        if(NextChar() == 'y') return true;
-        if(NextChar() == 'z') return true;
-        return false;
     }
     
     static void C() throws Exception{
