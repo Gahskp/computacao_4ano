@@ -48,6 +48,7 @@ public class GrammarLL1Examples {
     }
     
     static boolean input(){
+        AdvancePointer();
         if(NextChar() != 'n') return false;
         AdvancePointer();
         if(NextChar() != 'p') return false;
@@ -55,10 +56,12 @@ public class GrammarLL1Examples {
         if(NextChar() != 'u') return false;
         AdvancePointer();
         if(NextChar() != 't') return false;
+        AdvancePointer();
         return true;
     }
     
     static boolean print(){
+        AdvancePointer();
         if(NextChar() != 'r') return false;
         AdvancePointer();
         if(NextChar() != 'i') return false;
@@ -135,8 +138,28 @@ public class GrammarLL1Examples {
                     E();
                     return false;
                 } else throw new Exception();
-            case "input": System.out.println("C -> input"); return false;
-            case "print": System.out.println("C -> print"); return false;
+            case "input":
+                if(NextChar() == '('){
+                    AdvancePointer();
+                    if(id()){
+                        if(NextChar() != ')'){
+                            rule = "input(id)";
+                            System.out.println("C -> " + rule);
+                        } else throw new Exception();
+                    } else throw new Exception();
+                } else throw new Exception();
+                return false;
+            case "print": 
+                if(NextChar() == '('){
+                    AdvancePointer();
+                    if(id()){
+                        if(NextChar() != ')'){
+                            rule = "print(id)";
+                            System.out.println("C -> " + rule);
+                        } else throw new Exception();
+                    } else throw new Exception();
+                } else throw new Exception();
+                return false; 
             case "~": System.out.println("C -> ~"); return true;
         }
         return true;
@@ -205,8 +228,6 @@ public class GrammarLL1Examples {
     static void F() throws Exception
     {
         String rule;
-        System.out.println(input);
-        System.out.println(input.charAt(0));
         if(NextChar() == '('){
             rule = "(E)";
             System.out.println("F -> " + rule);
