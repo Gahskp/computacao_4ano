@@ -186,8 +186,6 @@ public class GrammarLL1Examples {
       String rule;
       
       AdvancePointer();
-      System.out.println(input);
-      System.out.println(input.charAt(0));
       if(NextChar() == '*'){
           rule = "*FS";
       }else if(NextChar() == '/') {
@@ -207,13 +205,13 @@ public class GrammarLL1Examples {
     static void F() throws Exception
     {
         String rule;
+        System.out.println(input);
+        System.out.println(input.charAt(0));
         if(NextChar() == '('){
             rule = "(E)";
             System.out.println("F -> " + rule);
-            AdvancePointer();
             E();
             if(NextChar() != ')');
-            AdvancePointer();
         }
         else if((NextChar() == '0')||(NextChar() == '1')||(NextChar() == '2')||(NextChar() == '3')
             ||(NextChar() == 'x')||(NextChar() == 'y')||(NextChar() == 'z')){
