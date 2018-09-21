@@ -30,12 +30,13 @@ public class GrammarLL1Examples {
     }
     
     static boolean atribuicao(){
-        if(NextChar() != '=') return false;
-        AdvancePointer();        
+        AdvancePointer();
+        if(NextChar() != '=') return false;        
         return true;
     }
 
     static boolean begin(){
+        AdvancePointer();
         if(NextChar() != 'e') return false;
         AdvancePointer();
         if(NextChar() != 'g') return false;
@@ -70,15 +71,14 @@ public class GrammarLL1Examples {
     }
     
     static boolean end(){
+        AdvancePointer();
         if(NextChar() != 'n') return false;
         AdvancePointer();
         if(NextChar() != 'd') return false;
-        AdvancePointer();
         return true;
     }
     
     static boolean id(){
-        AdvancePointer();
         if(NextChar() == 'x') return true;
         if(NextChar() == 'y') return true;
         if(NextChar() == 'z') return true;
@@ -90,50 +90,67 @@ public class GrammarLL1Examples {
     {
         if(NextChar() == 'b' && begin());
         else throw new Exception();
-        System.out.println("P -> begin L end");
-        L();
-        //Verificar o estado final "end"
+        System.out.println("P -> begin L");
+        
+        try {
+            L();
+        } catch (Exception e) {
+            throw new Exception();
+        }
+        
+        Scanner s = new Scanner(System.in);
+        input = s.nextLine();
+        if(NextChar() == 'e' && end());
+        else throw new Exception();
+        System.out.println("P -> end");
     }
     
     
 
-    static void L()
-    {
-      System.out.println("L -> CL | vazio");
-        try {
-            C();
-        } catch (Exception ex) {
-            Logger.getLogger(GrammarLL1Examples.class.getName()).log(Level.SEVERE, null, ex);
+    static void L() throws Exception{
+        Scanner s = new Scanner(System.in);
+        input = s.nextLine();
+        
+        if(C()) System.out.println("L -> vazio");
+        else{
+            System.out.println("L -> CL");
+            L();
         }
-      L();
     }
     
-    static void C() throws Exception{
+    static boolean C() throws Exception{
         String rule;
-        
         if(id()) rule = "id";
-        else AdvancePointer(); if(NextChar() == 'i' && input()) rule = "input";
-        else AdvancePointer(); if(NextChar() == 'p' && print()) rule = "print";
-        else rule = "~";
-        
+        else if(NextChar() == 'i' && input()) rule = "input";
+        else if(NextChar() == 'p' && print()) rule = "print";
+        else if(NextChar() == ' ') rule = "~";
+        else throw new Exception();
+            
         switch(rule)
         {
-            case "id": break;
-            case "input": break;
-            case "print": break;
-            case "~": break;
+            case "id": 
+                AdvancePointer();
+                if(NextChar() == ':' && atribuicao()){
+                    System.out.println("C -> id:= E"); 
+                    E();
+                    return false;
+                } else throw new Exception();
+            case "input": System.out.println("C -> input"); return false;
+            case "print": System.out.println("C -> print"); return false;
+            case "~": System.out.println("C -> ~"); return true;
         }
+        return true;
     }
     
     static void E() throws Exception
     {
-      System.out.println("E -> TF");
+      System.out.println("E -> TR");
         try {
             T();
         } catch (Exception ex) {
             Logger.getLogger(GrammarLL1Examples.class.getName()).log(Level.SEVERE, null, ex);
         }
-      F();
+      R();
     }
     
     static void R() throws Exception
@@ -158,7 +175,7 @@ public class GrammarLL1Examples {
     
     static void T() throws Exception
     {
-        System.out.println("T -> F S");
+        System.out.println("T -> FS");
         F();
         S();
     }
@@ -207,6 +224,7 @@ public class GrammarLL1Examples {
       try
       {
         P();
+        AdvancePointer();
         if(NextChar() == '$')
           return true;
       }
