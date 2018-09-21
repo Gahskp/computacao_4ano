@@ -131,7 +131,7 @@ public class GrammarLL1Examples {
             case "id": 
                 AdvancePointer();
                 if(NextChar() == ':' && atribuicao()){
-                    System.out.println("C -> id:= E"); 
+                    System.out.println("C -> id:= E");
                     E();
                     return false;
                 } else throw new Exception();
@@ -146,6 +146,7 @@ public class GrammarLL1Examples {
     {
       System.out.println("E -> TR");
         try {
+            AdvancePointer();
             T();
         } catch (Exception ex) {
             Logger.getLogger(GrammarLL1Examples.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,7 +157,7 @@ public class GrammarLL1Examples {
     static void R() throws Exception
     {
       String rule;
-
+      
       if(NextChar() == '+'){
           rule = "+TR";
       }else if(NextChar() == '-') {
@@ -183,7 +184,10 @@ public class GrammarLL1Examples {
     static void S() throws Exception
     {
       String rule;
-
+      
+      AdvancePointer();
+      System.out.println(input);
+      System.out.println(input.charAt(0));
       if(NextChar() == '*'){
           rule = "*FS";
       }else if(NextChar() == '/') {
@@ -191,7 +195,7 @@ public class GrammarLL1Examples {
       }
       else rule = "~";
 
-      System.out.println("F -> " + rule);
+      System.out.println("S -> " + rule);
       switch(rule)
       {
         case "*FS": AdvancePointer(); F(); S(); break;
@@ -202,21 +206,20 @@ public class GrammarLL1Examples {
 
     static void F() throws Exception
     {
-      String rule;
-
-      if(NextChar() == '('){
-          rule = "(E)";
-          System.out.println("F -> " + rule);
-          AdvancePointer();
-          E();
-          if(NextChar() != ')');
-          AdvancePointer();
-      }
-      else if((NextChar() == '0')||(NextChar() == '0')||(NextChar() == '0')||(NextChar() == '3')||(NextChar() == 'x')||(NextChar() == 'y')||(NextChar() == 'z')){
-          rule ="C";
-          System.out.println("F -> " + rule);
-          C();
-      }
+        String rule;
+        if(NextChar() == '('){
+            rule = "(E)";
+            System.out.println("F -> " + rule);
+            AdvancePointer();
+            E();
+            if(NextChar() != ')');
+            AdvancePointer();
+        }
+        else if((NextChar() == '0')||(NextChar() == '1')||(NextChar() == '2')||(NextChar() == '3')
+            ||(NextChar() == 'x')||(NextChar() == 'y')||(NextChar() == 'z')){
+            rule ="id | literal";
+            System.out.println("F -> " + rule);
+        }
     }
 
     static Boolean Parse()
