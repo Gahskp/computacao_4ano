@@ -5,7 +5,8 @@ public class Parser {
 	public static final int _varid = 1;
 	public static final int _integer = 2;
 	public static final int _string = 3;
-	public static final int maxT = 32;
+	public static final int _zr = 4;
+	public static final int maxT = 33;
 
 	static final boolean _T = true;
 	static final boolean _x = false;
@@ -79,9 +80,9 @@ public class Parser {
 	}
 	
 	void simple() {
-		Expect(4);
-		clist();
 		Expect(5);
+		clist();
+		Expect(6);
 	}
 
 	void clist() {
@@ -93,15 +94,15 @@ public class Parser {
 
 	void stmt() {
 		switch (la.kind) {
-		case 10: {
+		case 11: {
 			sdecl();
 			break;
 		}
-		case 7: {
+		case 8: {
 			print();
 			break;
 		}
-		case 8: {
+		case 9: {
 			sinput();
 			break;
 		}
@@ -109,75 +110,73 @@ public class Parser {
 			vardec();
 			break;
 		}
-		case 13: {
+		case 14: {
 			swhile();
 			break;
 		}
-		case 17: {
+		case 18: {
 			scond();
 			break;
 		}
-		default: SynErr(33); break;
+		default: SynErr(34); break;
 		}
-		Expect(6);
+		Expect(7);
 	}
 
 	void sdecl() {
-		Expect(10);
-		if (la.kind == 11) {
+		Expect(11);
+		if (la.kind == 12) {
 			Get();
-		} else if (la.kind == 12) {
+		} else if (la.kind == 13) {
 			Get();
-		} else SynErr(34);
+		} else SynErr(35);
 		Expect(1);
 	}
 
 	void print() {
-		Expect(7);
+		Expect(8);
 		if (la.kind == 3) {
 			Get();
-		} else if (la.kind == 1 || la.kind == 2 || la.kind == 14) {
+		} else if (la.kind == 1 || la.kind == 2 || la.kind == 15) {
 			cexpr();
-		} else SynErr(35);
+		} else SynErr(36);
 	}
 
 	void sinput() {
-		Expect(8);
+		Expect(9);
 		Expect(1);
 	}
 
 	void vardec() {
 		Expect(1);
-		if (la.kind == 9) {
+		if (la.kind == 10) {
 			Get();
 			if (la.kind == 3) {
 				Get();
 			} else if (la.kind == 2) {
 				Get();
-			} else if (la.kind == 1) {
+			} else if (la.kind == 4) {
 				Get();
-				aritop();
-				Expect(1);
-			} else SynErr(36);
+			} else SynErr(37);
 		}
 	}
 
 	void swhile() {
-		Expect(13);
 		Expect(14);
-		lexpr();
 		Expect(15);
-		stmt();
+		lexpr();
 		Expect(16);
+		stmt();
+		Expect(17);
 	}
 
 	void scond() {
-		Expect(17);
-		Expect(14);
-		lexpr();
+		Expect(18);
 		Expect(15);
-		stmt();
+		lexpr();
 		Expect(16);
+		stmt();
+		Expect(17);
 	}
 
 	void cexpr() {
@@ -191,33 +190,21 @@ public class Parser {
 				}
 				factor();
 			}
-		} else if (la.kind == 14) {
+		} else if (la.kind == 15) {
 			expr();
-		} else SynErr(37);
-	}
-
-	void aritop() {
-		if (la.kind == 18) {
-			Get();
-		} else if (la.kind == 19) {
-			Get();
-		} else if (la.kind == 20) {
-			Get();
-		} else if (la.kind == 21) {
-			Get();
 		} else SynErr(38);
 	}
 
 	void lexpr() {
-		Expect(25);
-		lcond();
 		Expect(26);
+		lcond();
+		Expect(27);
 	}
 
 	void expr() {
-		Expect(14);
+		Expect(15);
 		cexpr();
-		Expect(16);
+		Expect(17);
 	}
 
 	void factor() {
@@ -228,35 +215,47 @@ public class Parser {
 		} else SynErr(39);
 	}
 
-	void relop() {
-		if (la.kind == 22) {
+	void aritop() {
+		if (la.kind == 19) {
 			Get();
-		} else if (la.kind == 23) {
+		} else if (la.kind == 20) {
 			Get();
-		} else if (la.kind == 24) {
+		} else if (la.kind == 21) {
+			Get();
+		} else if (la.kind == 22) {
 			Get();
 		} else SynErr(40);
 	}
 
-	void lcond() {
-		if (la.kind == 27) {
+	void relop() {
+		if (la.kind == 23) {
 			Get();
-			Expect(14);
-			cexpr();
-			Expect(16);
-		} else if (la.kind == 1 || la.kind == 2 || la.kind == 14) {
-			crelexpr();
-		} else if (la.kind == 28) {
+		} else if (la.kind == 24) {
 			Get();
-		} else if (la.kind == 29) {
+		} else if (la.kind == 25) {
 			Get();
 		} else SynErr(41);
 	}
 
+	void lcond() {
+		if (la.kind == 28) {
+			Get();
+			Expect(15);
+			cexpr();
+			Expect(17);
+		} else if (la.kind == 1 || la.kind == 2 || la.kind == 15) {
+			crelexpr();
+		} else if (la.kind == 29) {
+			Get();
+		} else if (la.kind == 30) {
+			Get();
+		} else SynErr(42);
+	}
+
 	void crelexpr() {
 		cexpr();
-		if (la.kind == 30 || la.kind == 31) {
-			if (la.kind == 30) {
+		if (la.kind == 31 || la.kind == 32) {
+			if (la.kind == 31) {
 				Get();
 			} else {
 				Get();
@@ -277,10 +276,10 @@ public class Parser {
 	}
 
 	private static final boolean[][] set = {
-		{_T,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x},
-		{_x,_T,_x,_x, _x,_x,_x,_T, _T,_x,_T,_x, _x,_T,_x,_x, _x,_T,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x},
-		{_x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_T,_T, _T,_T,_T,_T, _T,_x,_x,_x, _x,_x,_x,_x, _x,_x},
-		{_x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_T,_T, _T,_T,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x}
+		{_T,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x},
+		{_x,_T,_x,_x, _x,_x,_x,_x, _T,_T,_x,_T, _x,_x,_T,_x, _x,_x,_T,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x},
+		{_x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_T, _T,_T,_T,_T, _T,_T,_x,_x, _x,_x,_x,_x, _x,_x,_x},
+		{_x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x,_T, _T,_T,_T,_x, _x,_x,_x,_x, _x,_x,_x,_x, _x,_x,_x}
 
 	};
 } // end Parser
@@ -309,44 +308,45 @@ class Errors {
 			case 1: s = "varid expected"; break;
 			case 2: s = "integer expected"; break;
 			case 3: s = "string expected"; break;
-			case 4: s = "\"PROGRAM\" expected"; break;
-			case 5: s = "\"END\" expected"; break;
-			case 6: s = "\";\" expected"; break;
-			case 7: s = "\"PRINT\" expected"; break;
-			case 8: s = "\"INPUT\" expected"; break;
-			case 9: s = "\":=\" expected"; break;
-			case 10: s = "\"VAR\" expected"; break;
-			case 11: s = "\"INT\" expected"; break;
-			case 12: s = "\"STR\" expected"; break;
-			case 13: s = "\"WHILE\" expected"; break;
-			case 14: s = "\"(\" expected"; break;
-			case 15: s = "\",\" expected"; break;
-			case 16: s = "\")\" expected"; break;
-			case 17: s = "\"IF\" expected"; break;
-			case 18: s = "\"+\" expected"; break;
-			case 19: s = "\"-\" expected"; break;
-			case 20: s = "\"*\" expected"; break;
-			case 21: s = "\"DIV\" expected"; break;
-			case 22: s = "\"<\" expected"; break;
-			case 23: s = "\">\" expected"; break;
-			case 24: s = "\"==\" expected"; break;
-			case 25: s = "\".(\" expected"; break;
-			case 26: s = "\").\" expected"; break;
-			case 27: s = "\"NOT\" expected"; break;
-			case 28: s = "\"TRUE\" expected"; break;
-			case 29: s = "\"FALSE\" expected"; break;
-			case 30: s = "\"AND\" expected"; break;
-			case 31: s = "\"OR\" expected"; break;
-			case 32: s = "??? expected"; break;
-			case 33: s = "invalid stmt"; break;
-			case 34: s = "invalid sdecl"; break;
-			case 35: s = "invalid print"; break;
-			case 36: s = "invalid vardec"; break;
-			case 37: s = "invalid cexpr"; break;
-			case 38: s = "invalid aritop"; break;
+			case 4: s = "zr expected"; break;
+			case 5: s = "\"PROGRAM\" expected"; break;
+			case 6: s = "\"END\" expected"; break;
+			case 7: s = "\";\" expected"; break;
+			case 8: s = "\"PRINT\" expected"; break;
+			case 9: s = "\"INPUT\" expected"; break;
+			case 10: s = "\":=\" expected"; break;
+			case 11: s = "\"VAR\" expected"; break;
+			case 12: s = "\"INT\" expected"; break;
+			case 13: s = "\"STR\" expected"; break;
+			case 14: s = "\"WHILE\" expected"; break;
+			case 15: s = "\"(\" expected"; break;
+			case 16: s = "\",\" expected"; break;
+			case 17: s = "\")\" expected"; break;
+			case 18: s = "\"IF\" expected"; break;
+			case 19: s = "\"+\" expected"; break;
+			case 20: s = "\"-\" expected"; break;
+			case 21: s = "\"*\" expected"; break;
+			case 22: s = "\"DIV\" expected"; break;
+			case 23: s = "\"<\" expected"; break;
+			case 24: s = "\">\" expected"; break;
+			case 25: s = "\"==\" expected"; break;
+			case 26: s = "\".(\" expected"; break;
+			case 27: s = "\").\" expected"; break;
+			case 28: s = "\"NOT\" expected"; break;
+			case 29: s = "\"TRUE\" expected"; break;
+			case 30: s = "\"FALSE\" expected"; break;
+			case 31: s = "\"AND\" expected"; break;
+			case 32: s = "\"OR\" expected"; break;
+			case 33: s = "??? expected"; break;
+			case 34: s = "invalid stmt"; break;
+			case 35: s = "invalid sdecl"; break;
+			case 36: s = "invalid print"; break;
+			case 37: s = "invalid vardec"; break;
+			case 38: s = "invalid cexpr"; break;
 			case 39: s = "invalid factor"; break;
-			case 40: s = "invalid relop"; break;
-			case 41: s = "invalid lcond"; break;
+			case 40: s = "invalid aritop"; break;
+			case 41: s = "invalid relop"; break;
+			case 42: s = "invalid lcond"; break;
 			default: s = "error " + n; break;
 		}
 		printMsg(line, col, s);

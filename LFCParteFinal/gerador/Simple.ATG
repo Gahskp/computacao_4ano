@@ -29,6 +29,8 @@ integer = digit {digit | zero}.
 
 string = "'" { letter } "'".
 
+zr = zero.
+
 COMMENTS FROM "/*" TO "*/" NESTED
 
 IGNORE cr + lf + tab
@@ -57,7 +59,7 @@ sinput = "INPUT" varid.
 
 /*------------------------------------------------------------------------*/
 
-vardec = varid [":=" ( string | integer | varid aritop varid )].
+vardec = varid [":=" ( string | integer | zr )].
 
 /*------------------------------------------------------------------------*/
 

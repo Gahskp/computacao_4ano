@@ -10,7 +10,7 @@ package compilador;
  *
  * @author evert
  */
-public class LFCTrabalhoFinal {
+public class compilador {
 
 
   public static void main(String[] arg) {

@@ -1,0 +1,17 @@
+﻿PROGRAM
+VAR INT A ;
+A := 10 ;
+VAR INT B ;
+B := 15 ;
+VAR INT i ;
+VAR INT j ;
+i := 1 ;
+WHILE (.(i < B)., PRINT(i););
+j :=  1 ;
+i := 'a' ;
+WHILE (.(i < B)., PRINT(j + i););
+j := 0 ;
+i := 1 ;
+WHILE (.(i < B)., PRINT(3 * i) ;);
+i := 0 ;
+END

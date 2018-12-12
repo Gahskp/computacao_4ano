@@ -251,8 +251,8 @@ class StartStates {
 public class Scanner {
 	static final char EOL = '\n';
 	static final int  eofSym = 0;
-	static final int maxT = 32;
-	static final int noSym = 32;
+	static final int maxT = 33;
+	static final int noSym = 33;
 
 
 	public Buffer buffer; // scanner buffer
@@ -280,35 +280,36 @@ public class Scanner {
 		for (int i = 65; i <= 90; ++i) start.set(i, 1);
 		for (int i = 97; i <= 122; ++i) start.set(i, 1);
 		for (int i = 49; i <= 57; ++i) start.set(i, 2);
+		for (int i = 48; i <= 48; ++i) start.set(i, 5);
 		start.set(39, 3);
-		start.set(59, 5);
-		start.set(58, 6);
-		start.set(40, 8);
-		start.set(44, 9);
-		start.set(41, 20);
-		start.set(43, 10);
-		start.set(45, 11);
-		start.set(42, 12);
-		start.set(60, 13);
-		start.set(62, 14);
-		start.set(61, 15);
-		start.set(46, 17);
+		start.set(59, 6);
+		start.set(58, 7);
+		start.set(40, 9);
+		start.set(44, 10);
+		start.set(41, 21);
+		start.set(43, 11);
+		start.set(45, 12);
+		start.set(42, 13);
+		start.set(60, 14);
+		start.set(62, 15);
+		start.set(61, 16);
+		start.set(46, 18);
 		start.set(Buffer.EOF, -1);
-		literals.put("PROGRAM", new Integer(4));
-		literals.put("END", new Integer(5));
-		literals.put("PRINT", new Integer(7));
-		literals.put("INPUT", new Integer(8));
-		literals.put("VAR", new Integer(10));
-		literals.put("INT", new Integer(11));
-		literals.put("STR", new Integer(12));
-		literals.put("WHILE", new Integer(13));
-		literals.put("IF", new Integer(17));
-		literals.put("DIV", new Integer(21));
-		literals.put("NOT", new Integer(27));
-		literals.put("TRUE", new Integer(28));
-		literals.put("FALSE", new Integer(29));
-		literals.put("AND", new Integer(30));
-		literals.put("OR", new Integer(31));
+		literals.put("PROGRAM", new Integer(5));
+		literals.put("END", new Integer(6));
+		literals.put("PRINT", new Integer(8));
+		literals.put("INPUT", new Integer(9));
+		literals.put("VAR", new Integer(11));
+		literals.put("INT", new Integer(12));
+		literals.put("STR", new Integer(13));
+		literals.put("WHILE", new Integer(14));
+		literals.put("IF", new Integer(18));
+		literals.put("DIV", new Integer(22));
+		literals.put("NOT", new Integer(28));
+		literals.put("TRUE", new Integer(29));
+		literals.put("FALSE", new Integer(30));
+		literals.put("AND", new Integer(31));
+		literals.put("OR", new Integer(32));
 
 	}
 
@@ -441,42 +442,44 @@ public class Scanner {
 				case 4:
 					{t.kind = 3; break loop;}
 				case 5:
-					{t.kind = 6; break loop;}
+					{t.kind = 4; break loop;}
 				case 6:
-					if (ch == '=') {AddCh(); state = 7; break;}
-					else {state = 0; break;}
+					{t.kind = 7; break loop;}
 				case 7:
-					{t.kind = 9; break loop;}
+					if (ch == '=') {AddCh(); state = 8; break;}
+					else {state = 0; break;}
 				case 8:
-					{t.kind = 14; break loop;}
+					{t.kind = 10; break loop;}
 				case 9:
 					{t.kind = 15; break loop;}
 				case 10:
-					{t.kind = 18; break loop;}
+					{t.kind = 16; break loop;}
 				case 11:
 					{t.kind = 19; break loop;}
 				case 12:
 					{t.kind = 20; break loop;}
 				case 13:
-					{t.kind = 22; break loop;}
+					{t.kind = 21; break loop;}
 				case 14:
 					{t.kind = 23; break loop;}
 				case 15:
-					if (ch == '=') {AddCh(); state = 16; break;}
-					else {state = 0; break;}
-				case 16:
 					{t.kind = 24; break loop;}
-				case 17:
-					if (ch == '(') {AddCh(); state = 18; break;}
+				case 16:
+					if (ch == '=') {AddCh(); state = 17; break;}
 					else {state = 0; break;}
-				case 18:
+				case 17:
 					{t.kind = 25; break loop;}
+				case 18:
+					if (ch == '(') {AddCh(); state = 19; break;}
+					else {state = 0; break;}
 				case 19:
 					{t.kind = 26; break loop;}
 				case 20:
-					recEnd = pos; recKind = 16;
-					if (ch == '.') {AddCh(); state = 19; break;}
-					else {t.kind = 16; break loop;}
+					{t.kind = 27; break loop;}
+				case 21:
+					recEnd = pos; recKind = 17;
+					if (ch == '.') {AddCh(); state = 20; break;}
+					else {t.kind = 17; break loop;}
 
 			}
 		}
