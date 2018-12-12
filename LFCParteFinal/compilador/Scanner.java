@@ -1,3 +1,4 @@
+package compilador;
 
 import java.io.InputStream;
 import java.io.IOException;
@@ -151,7 +152,7 @@ class Buffer {
 			bufPos = fileLen - bufStart;
 		}
 	}
-	
+
 	// Read the next chunk of bytes from the stream, increases the buffer
 	// if needed and updates the fields fileLen and bufLen.
 	// Returns the number of bytes read.
@@ -167,11 +168,11 @@ class Buffer {
 			buf = newBuf;
 			free = bufLen;
 		}
-		
+
 		int read;
 		try { read = stream.read(buf, bufLen, free); }
 		catch (IOException ioex) { throw new FatalError(ioex.getMessage()); }
-		
+
 		if (read > 0) {
 			fileLen = bufLen = (bufLen + read);
 			return read;
@@ -268,7 +269,7 @@ public class Scanner {
 
 	Token tokens;      // list of tokens already peeked (first token is a dummy)
 	Token pt;          // current peek token
-	
+
 	char[] tval = new char[16]; // token text used in NextToken(), dynamically enlarged
 	int tlen;          // length of current token
 
@@ -279,19 +280,19 @@ public class Scanner {
 		for (int i = 65; i <= 90; ++i) start.set(i, 1);
 		for (int i = 97; i <= 122; ++i) start.set(i, 1);
 		for (int i = 49; i <= 57; ++i) start.set(i, 2);
-		start.set(39, 3); 
-		start.set(59, 5); 
-		start.set(58, 6); 
-		start.set(40, 8); 
-		start.set(44, 9); 
-		start.set(41, 20); 
-		start.set(43, 10); 
-		start.set(45, 11); 
-		start.set(42, 12); 
-		start.set(60, 13); 
-		start.set(62, 14); 
-		start.set(61, 15); 
-		start.set(46, 17); 
+		start.set(39, 3);
+		start.set(59, 5);
+		start.set(58, 6);
+		start.set(40, 8);
+		start.set(44, 9);
+		start.set(41, 20);
+		start.set(43, 10);
+		start.set(45, 11);
+		start.set(42, 12);
+		start.set(60, 13);
+		start.set(62, 14);
+		start.set(61, 15);
+		start.set(46, 17);
 		start.set(Buffer.EOF, -1);
 		literals.put("PROGRAM", new Integer(4));
 		literals.put("END", new Integer(5));
@@ -310,17 +311,17 @@ public class Scanner {
 		literals.put("OR", new Integer(31));
 
 	}
-	
+
 	public Scanner (String fileName) {
 		buffer = new Buffer(fileName);
 		Init();
 	}
-	
+
 	public Scanner(InputStream s) {
 		buffer = new Buffer(s);
 		Init();
 	}
-	
+
 	void Init () {
 		pos = -1; line = 1; col = 0; charPos = -1;
 		oldEols = 0;
@@ -336,7 +337,7 @@ public class Scanner {
 		}
 		pt = tokens = new Token();  // first token is a dummy
 	}
-	
+
 	void NextCh() {
 		if (oldEols > 0) { ch = EOL; oldEols--; }
 		else {
@@ -350,7 +351,7 @@ public class Scanner {
 		}
 
 	}
-	
+
 	void AddCh() {
 		if (tlen >= tval.length) {
 			char[] newBuf = new char[2 * tval.length];
@@ -358,13 +359,13 @@ public class Scanner {
 			tval = newBuf;
 		}
 		if (ch != Buffer.EOF) {
-			tval[tlen++] = (char)ch; 
+			tval[tlen++] = (char)ch;
 
 			NextCh();
 		}
 
 	}
-	
+
 
 	boolean Comment0() {
 		int level = 1, pos0 = pos, line0 = line, col0 = col, charPos0 = charPos;
@@ -417,7 +418,7 @@ public class Scanner {
 
 		loop: for (;;) {
 			switch (state) {
-				case -1: { t.kind = eofSym; break loop; } // NextCh already done 
+				case -1: { t.kind = eofSym; break loop; } // NextCh already done
 				case 0: {
 					if (recKind != noSym) {
 						tlen = recEnd - t.pos;
@@ -482,14 +483,14 @@ public class Scanner {
 		t.val = new String(tval, 0, tlen);
 		return t;
 	}
-	
+
 	private void SetScannerBehindT() {
 		buffer.setPos(t.pos);
 		NextCh();
 		line = t.line; col = t.col; charPos = t.charPos;
 		for (int i = 0; i < tlen; i++) NextCh();
 	}
-	
+
 	// get the next token (possibly a token already seen during peeking)
 	public Token Scan () {
 		if (tokens.next == null) {

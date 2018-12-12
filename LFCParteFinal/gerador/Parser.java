@@ -154,6 +154,10 @@ public class Parser {
 				Get();
 			} else if (la.kind == 2) {
 				Get();
+			} else if (la.kind == 1) {
+				Get();
+				aritop();
+				Expect(1);
 			} else SynErr(36);
 		}
 	}
@@ -192,6 +196,18 @@ public class Parser {
 		} else SynErr(37);
 	}
 
+	void aritop() {
+		if (la.kind == 18) {
+			Get();
+		} else if (la.kind == 19) {
+			Get();
+		} else if (la.kind == 20) {
+			Get();
+		} else if (la.kind == 21) {
+			Get();
+		} else SynErr(38);
+	}
+
 	void lexpr() {
 		Expect(25);
 		lcond();
@@ -209,18 +225,6 @@ public class Parser {
 			Get();
 		} else if (la.kind == 1) {
 			vardec();
-		} else SynErr(38);
-	}
-
-	void aritop() {
-		if (la.kind == 18) {
-			Get();
-		} else if (la.kind == 19) {
-			Get();
-		} else if (la.kind == 20) {
-			Get();
-		} else if (la.kind == 21) {
-			Get();
 		} else SynErr(39);
 	}
 
@@ -339,8 +343,8 @@ class Errors {
 			case 35: s = "invalid print"; break;
 			case 36: s = "invalid vardec"; break;
 			case 37: s = "invalid cexpr"; break;
-			case 38: s = "invalid factor"; break;
-			case 39: s = "invalid aritop"; break;
+			case 38: s = "invalid aritop"; break;
+			case 39: s = "invalid factor"; break;
 			case 40: s = "invalid relop"; break;
 			case 41: s = "invalid lcond"; break;
 			default: s = "error " + n; break;
